@@ -1,0 +1,24 @@
+\documentclass{article}
+
+\usepackage{tikz, pgfplots, fkmath}
+\usepackage[
+paperwidth=8.75cm,
+paperheight=2.25cm,
+margin=2pt,
+lmargin=-.5cm
+]{geometry}
+
+
+\newcommand{\jonesd}[1][every node/.style={scale=.5}]{%
+  \raisebox{-1.9em}{\begin{tikzpicture}[#1]%
+      \pgfdeclareimage{jd}{single-circle.pdf}
+      \node (jd) at (0,0) {\pgfuseimage{jd}};
+    \end{tikzpicture}}%
+}
+
+\begin{document}
+$\displaystyle \bk{\jonesd{} \jonesd{} \cdots \jonesd{}} =
+\text{$\pn{-x^2 - x^{-2}}^{k-1}$}
+\hspace{-23.0em}\raisebox{-1.75em}{$\underbrace{\hspace{13.25em}}_{k
+    \text{ copies}}$}$
+\end{document}

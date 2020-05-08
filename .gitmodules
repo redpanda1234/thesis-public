@@ -1,0 +1,6 @@
+[submodule "permutation-knots"]
+	path = permutation-knots
+	url = https://github.com/redpanda1234/permutation-knots
+[submodule "linear-presentation"]
+	path = linear-presentation
+	url = https://github.com/PythonNut/linear-presentation

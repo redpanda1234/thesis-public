@@ -1,0 +1,60 @@
+\documentclass[border=1pt]{standalone}
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}
+  \def\mywidth{1.75cm}
+  \def\mysep{2.125}
+
+  \pgfmathsetmacro{\xa}{0}
+  \pgfmathsetmacro{\xb}{\xa + \mysep}
+  \pgfmathsetmacro{\xc}{\xb + \mysep}
+  \pgfmathsetmacro{\xd}{\xc + \mysep}
+
+
+  \pgfmathsetmacro{\ya}{0}
+  \pgfmathsetmacro{\yb}{\ya}
+  \pgfmathsetmacro{\yc}{\ya}
+  \pgfmathsetmacro{\yd}{\yc}
+
+  \pgfdeclareimage[width=\mywidth]{o1}{o1_crossings.pdf}
+  \node (o1) at (\xa,\ya) {\pgfuseimage{o1}};
+
+  \pgfdeclareimage[width=\mywidth]{o11}{o1_crossings_1.pdf}
+  \node (o11) at (\xb,\yb) {\pgfuseimage{o11}};
+
+  \pgfdeclareimage[width=\mywidth]{o12}{o1_crossings_2.pdf}
+  \node (o12) at (\xc,\yc) {\pgfuseimage{o12}};
+
+  \pgfdeclareimage[width=\mywidth]{o13}{o1_crossings_3.pdf}
+  \node (o13) at (\xd,\yd) {\pgfuseimage{o13}};
+
+  \pgfmathsetmacro{\halfwidth}{\mywidth/2}
+  \draw[red, dashed] (-1,-1) rectangle (7.5,1);
+  \node[red] () at (-1.5, 0) {$+$};
+
+  \begin{scope}[yshift=-2.5cm]
+    \pgfmathsetmacro{\xa}{0}
+    \pgfmathsetmacro{\xb}{\xa + \mysep}
+    \pgfmathsetmacro{\xc}{\xb + \mysep}
+    \pgfmathsetmacro{\xd}{\xc + \mysep}
+
+    \pgfdeclareimage[width=\mywidth]{o2}{o2_crossings.pdf}
+    \node (o2) at (\xa,0) {\pgfuseimage{o2}};
+
+    \pgfdeclareimage[width=\mywidth]{o21}{o2_crossings_1.pdf}
+    \node (o21) at (\xb,0) {\pgfuseimage{o21}};
+
+    \pgfdeclareimage[width=\mywidth]{o22}{o2_crossings_2.pdf}
+    \node (o22) at (\xc,0) {\pgfuseimage{o22}};
+
+    \pgfdeclareimage[width=\mywidth]{o23}{o2_crossings_3.pdf}
+    \node (o23) at (\xd,0) {\pgfuseimage{o23}};
+
+    \pgfmathsetmacro{\halfwidth}{\mywidth/2}
+    \node[blue] () at (-1.5, 0) {$-$};
+    \draw[blue, dashed] (-1,-1) rectangle (7.5,1);
+  \end{scope}
+
+\end{tikzpicture}
+\end{document}

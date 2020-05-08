@@ -1,0 +1,21 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{fkmath}
+\begin{document}
+\begin{tikzpicture}[scale=.75]% [every node/.style={scale=1.5}]
+  \draw[] (-1,1) -- (1,-1);
+  \draw[white, line width=8pt] (1,1) -- (-1,-1);
+  \draw[] (1,1) -- (-1,-1);
+  \draw[densely dotted] (0,0) circle (1.41);
+
+  \begin{scope}[xshift=7cm]
+    \draw[] (1,1) -- (-1,-1);
+    \draw[white, line width=8pt] (-1,1) -- (1,-1);
+    \draw[] (-1,1) -- (1,-1);
+    \draw[densely dotted] (0,0) circle (1.41);
+  \end{scope}
+
+  \draw[|-latex] (2,0) -- (5,0) node[midway, above] {};
+
+\end{tikzpicture}
+\end{document}

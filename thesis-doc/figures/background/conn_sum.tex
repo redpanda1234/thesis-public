@@ -1,0 +1,13 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}
+  \pgfdeclareimage[width=4.5cm]{lhs}{csum-1-2.pdf}
+  \pgfdeclareimage[width=4.5cm]{rhs}{csum-2-2.pdf}
+  \node () at (-2.75, -2.75) {$\#$};
+  \node () at (0, -2.75) {$=$};
+  % \draw[|-latex] (-1, -1.5) -- (1, -1.5);
+  \node () at (-2.75,-2.75) {\pgfuseimage{lhs}};
+  \node () at (2.75,-2.75) {\pgfuseimage{rhs}};
+\end{tikzpicture}
+\end{document}

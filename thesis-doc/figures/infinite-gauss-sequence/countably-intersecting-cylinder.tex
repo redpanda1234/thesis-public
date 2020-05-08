@@ -1,0 +1,158 @@
+\documentclass[tikz,border=3.14pt]{standalone}
+\usepackage{tikz-3dplot}
+
+\begin{document}
+\tdplotsetmaincoords{70}{0}
+\begin{tikzpicture}[line cap=round, line join=round, tdplot_main_coords]
+  \def\drawcyl{
+    % Draw the vertical connecting lines for the cylinder
+    % \draw (-\R, 0, \zmax) -- (-\R, 0, 0);
+    % \draw (\R, 0, \zmax) -- (\R, 0, 0);
+
+    % Bottom dashed lien part
+    \draw plot[variable=\x,domain=180:360,samples=360]
+    ({\R*cos(\x)},{\R*sin(\x)}, 0);
+
+    % Undashed part
+    \draw[dashed] plot[variable=\x,domain=0:180,samples=360]
+    ({\R*cos(\x)},{\R*sin(\x)}, 0);
+
+    % Top cap
+    \draw plot[variable=\x,domain=0:360,samples=360]
+    ({\R*cos(\x)},{\R*sin(\x)}, \zmax);
+
+
+    % Top strand goes here
+    \draw[blue, fill=blue!50!white, fill opacity=.25]
+    plot[variable=\x,domain=0:360,samples=360] ({\R*cos(\x)},{\R*sin(\x)}, \zts);
+
+
+    % Bottom strand goes here
+    \draw[red, fill=red!50!white, fill opacity=.25] plot[variable=\x,domain=0:360,samples=360]
+    ({\R*cos(\x)},{\R*sin(\x)}, \zbs);
+
+    \draw plot[variable=\x,domain=0:360,samples=360]
+    ({\R*cos(\x)},{\R*sin(\x)}, .5*\zmax);
+
+% Bottom dashed lien part
+    \draw plot[variable=\x,domain=180:360,samples=360]
+    ({\R*cos(\x)},{\R*sin(\x)}, 0);
+
+    % Undashed part
+    \draw[dashed] plot[variable=\x,domain=0:180,samples=360]
+    ({\R*cos(\x)},{\R*sin(\x)}, 0);
+
+  }
+
+  \pgfmathsetmacro{\zmax}{10}
+
+  \pgfmathsetmacro{\zts}{.75*\zmax}
+  \pgfmathsetmacro{\zbs}{.25*\zmax}
+
+  \pgfmathsetmacro{\Rout}{3}
+  \pgfmathsetmacro{\Rin}{2}
+
+
+  % Rotate to make the drawing of the crossing essentially trivial
+  \tdplotsetrotatedcoords{-50}{0}{0}
+  \begin{scope}[tdplot_rotated_coords]
+    \draw[blue, thick] (-\Rout, 0, \zts) -- (\Rout, 0, \zts);
+    \draw[red, thick] (0, -\Rout, \zbs) -- (0, \Rout, \zbs);
+
+
+    \draw[red, thick] (0, -\Rout, 0) -- (0, \Rout, 0);
+    \draw[white, line width=7pt] (-.5*\Rout, 0, 0) -- (.5*\Rout, 0, 0);
+    \draw[blue, thick] (-\Rout, 0, 0) -- (\Rout, 0, 0);
+  \end{scope}
+
+  % Draw the circles and the vertical cylider lines
+  \pgfmathsetmacro{\R}{\Rin}
+  \drawcyl
+
+  \foreach \t in {5, 25, ..., 365}{
+    \pgfmathsetmacro{\mx}{\R*cos(\t)}
+    \pgfmathsetmacro{\my}{\R*sin(\t)}
+
+    % Draw the vertical connecting lines for the cylinder
+    \draw[dotted] (\mx, \my, \zmax) -- (\mx, \my, 0);
+
+  }
+
+
+  \pgfmathsetmacro{\R}{\Rout}
+  \drawcyl
+
+  \foreach \t in {0, 180}{
+    \pgfmathsetmacro{\mx}{\R*cos(\t)}
+    \pgfmathsetmacro{\my}{\R*sin(\t)}
+
+    % Draw the vertical connecting lines for the cylinder
+    \draw[very thin] (\mx, \my, \zmax) -- (\mx, \my, 0);
+
+  }
+
+
+
+
+  % Now we darw all the oscillatory parts
+  \pgfmathsetmacro{\ti}{135} % Initial theta
+  \pgfmathsetmacro{\trange}{150}
+  % \pgfmathsetmacro{\ti}{150} % Initial theta
+  % \pgfmathsetmacro{\trange}{50}
+  \pgfmathsetmacro{\Rs}{\Rout + .5}
+  % \pgfmathsetmacro{\Rm}{\Rout}
+  % \pgfmathsetmacro{\Rm}{\Rout}
+
+  \foreach \n in {2, 3, ..., 40}{
+
+    % This value of theta
+    \pgfmathsetmacro{\theta}{\ti + \trange/\n}
+
+    % Next value of n
+    \pgfmathsetmacro{\nnext}{\n + 1}
+
+    % How much to change theta by for the next one
+    \pgfmathsetmacro{\dt}{\trange * (1/\n - 1/\nnext)}
+
+    % How far in towards the center to go
+    \pgfmathsetmacro{\Rin}{\Rin/\n}
+
+    % Starting coordinates
+    \pgfmathsetmacro{\xo}{\Rs * cos(\theta)}
+    \pgfmathsetmacro{\yo}{\Rs * sin(\theta)}
+
+    % Mid point on the inside
+    \pgfmathsetmacro{\xm}{\Rin * cos(\theta - \dt/2)}
+    \pgfmathsetmacro{\ym}{\Rin * sin(\theta - \dt/2)}
+
+    % Final point going back out to the rim
+    \pgfmathsetmacro{\xf}{\Rs * cos(\theta - \dt)}
+    \pgfmathsetmacro{\yf}{\Rs * sin(\theta - \dt)}
+
+    \draw[ultra thin] (\xo, \yo, .5*\zmax) -- (\xm, \ym, .5*\zmax) -- (\xf, \yf, .5*\zmax);
+    \draw[ultra thin] (\xo, \yo, 0) -- (\xm, \ym, 0) -- (\xf, \yf, 0);
+    % \pgfmathsetmacro{\ts}{\ti + \trange/\n}
+    % \pgfmathsetmacro{\tm}{\ts + \dt/4}
+    % \pgfmathsetmacro{\to}{\ts + 2*\dt/4}
+    % \pgfmathsetmacro{\tf}{\ts + 3*\dt/4}
+
+    % \pgfmathsetmacro{\xs}{\Rs*cos(\ts)}
+    % \pgfmathsetmacro{\ys}{\Rs*sin(\ts)}
+
+    % \pgfmathsetmacro{\xm}{\Rout*cos(\tm)}
+    % \pgfmathsetmacro{\ym}{\Rout*sin(\tm)}
+
+    % \pgfmathsetmacro{\xo}{\R*cos(\to)}
+    % \pgfmathsetmacro{\yo}{\R*sin(\to)}
+
+    % \pgfmathsetmacro{\xf}{\R*cos(\tf)}
+    % \pgfmathsetmacro{\yf}{\R*sin(\tf)}
+
+  }
+
+
+
+
+
+\end{tikzpicture}
+\end{document}

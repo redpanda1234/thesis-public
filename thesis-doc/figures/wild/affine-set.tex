@@ -1,0 +1,94 @@
+\documentclass[tikz,border=3.14pt]{standalone}
+\usepackage{tikz-3dplot}
+\begin{document}
+\tdplotsetmaincoords{72}{110}
+\begin{tikzpicture}[tdplot_main_coords,font=\sffamily]
+
+
+  \pgfmathsetmacro{\xaxmax}{5}
+  \pgfmathsetmacro{\yaxmax}{5}
+
+  % \pgfmathsetmacro{\xlinemax}{3.5}
+  % \pgfmathsetmacro{\ylinemax}{3.5}
+  % \pgfmathsetmacro{\xlinemin}{-1.5}
+  % \pgfmathsetmacro{\ylinemin}{-1.5}
+  % \foreach \x in {0, .5,..., \xlinemax}{
+  %   \draw[ultra thin] (\x, \ylinemin) -- (\x, \ylinemax);
+  % }
+  % \foreach \y in {0, .5,..., \ylinemax}{
+  %   \draw[ultra thin] (\xlinemin, \y) -- (\xlinemax, \y);
+  % }
+
+
+
+  \draw[-latex, thick] (0,0,0) -- (\xaxmax,0,0) node[left] {$x$};
+  \draw[-latex, thick] (0,0,0) -- (0,\yaxmax,0) node[below] {$y$};
+  \draw[-latex, thick] (0,0,0) -- (0,0,3) node[left] {$z$};
+
+  \pgfmathsetmacro{\zhigh}{1.2}
+  \pgfmathsetmacro{\zlow}{.5}
+  \pgfmathsetmacro{\xmin}{-3}
+  \pgfmathsetmacro{\xmax}{3.5}
+
+  \pgfmathsetmacro{\ymin}{-1.5}
+  \pgfmathsetmacro{\ymax}{4.5}
+
+  \draw[fill=red!10!white,opacity=0.8] (\xmin,\ymin,\zhigh) -- (\xmin,\ymax,\zhigh) --
+  (\xmax,\ymax,\zlow) -- (\xmax,\ymin,\zlow) -- cycle;
+
+
+  \pgfmathsetmacro{\nodez}{.5*\zlow + .5*\zhigh}
+  \node[fill=black, circle, inner sep=1pt] (myz) at (0,0,\nodez) {};
+  \draw[-latex] (myz) -- (0,0,3);
+
+  % Draw the grid lines for the plane
+  \pgfmathsetmacro{\xnext}{\xmin + .5}
+  % \pgfmathsetmacro{\xnext}{\xmin + .5}
+  \foreach \x in {\xmin, \xnext, ..., \xmax}{
+    \pgfmathsetmacro{\s}{(\xmax - \x)/(\xmax-\xmin)} % Ugh I can't
+                                % believe I played myself % into doing
+                                % a convex combination
+    \pgfmathsetmacro{\zcurr}{\s * (\zhigh) + (1-\s)*\zlow}
+    \draw[very thin] (\x, \ymax, \zcurr) -- (\x, \ymin, \zcurr);
+  }
+
+  \pgfmathsetmacro{\ynext}{\ymin + .5} % For defining the for loops
+  \foreach \y in {\ymin, \ynext, ..., \ymax}{
+    \draw[very thin] (\xmax, \y, \zlow) -- (\xmin, \y, \zhigh);
+  }
+
+  % X min plus some
+  \pgfmathsetmacro{\dx}{1.5}
+  \pgfmathsetmacro{\xminp}{\xmin - \dx}
+  \pgfmathsetmacro{\xmaxp}{\xmax + \dx}
+
+  \pgfmathsetmacro{\dy}{1.5}
+  \pgfmathsetmacro{\yminp}{\ymin - \dy}
+  \pgfmathsetmacro{\ymaxp}{\ymax + \dy}
+
+  \pgfmathsetmacro{\dz}{\dx*(\zhigh - \zlow)/(\xmax - \xmin)} % The plane only slopes in x so we can do this
+
+
+  % Draw the dotted x lines
+  \begin{scope}[every path/.style={dotted, thick}]
+    \draw[] (\xmin, \ymin, \zhigh) -- (\xminp, \ymin, \zhigh+\dz);
+    \draw[] (\xmin, \ymax, \zhigh) -- (\xminp, \ymax, \zhigh+\dz);
+    \draw[] (\xmax, \ymin, \zlow) -- (\xmaxp, \ymin, \zlow-\dz);
+    \draw[] (\xmax, \ymax, \zlow) -- (\xmaxp, \ymax, \zlow-\dz);
+
+
+    \foreach \coord/\coordp in {\ymin/\yminp, \ymax/\ymaxp}{
+      \draw[] (\xmin, \coord, \zhigh) -- (\xmin, \coordp, \zhigh);
+      \draw[] (\xmax, \coord, \zlow) -- (\xmax, \coordp, \zlow);
+    }
+  \end{scope}
+
+
+
+
+
+  % \draw[thick](-3,0,0)--(3,0,0);
+  % \node[anchor=south west,align=center] (line) at (3,3,3) {line of\\ intersection};
+  % \draw[-latex] (line) to[out=180,in=75] (-2,0,0.05);
+\end{tikzpicture}
+\end{document}

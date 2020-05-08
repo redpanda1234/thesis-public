@@ -1,0 +1,9 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\begin{document}
+\begin{tikzpicture}
+  \pgfdeclareimage[width=5cm]{countable-r2}{countable-r2-two-step-1.pdf}
+  \node[rotate=-90] (a) at (0,0) {\pgfuseimage{countable-r2}};
+\end{tikzpicture}
+\end{document}

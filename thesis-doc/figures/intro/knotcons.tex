@@ -1,0 +1,48 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\begin{document}
+  \begin{tikzpicture}[scale=.85, every node/.style={scale=.7}]
+    \pgfdeclareimage{rka}{../../figures/intro/rope-knot-2.pdf}
+    \pgfdeclareimage{rkb}{../../figures/intro/rope-knot-3.pdf}
+    \pgfdeclareimage{rkc}{../../figures/intro/rope-knot-4.pdf}
+    \pgfdeclareimage{rkd}{../../figures/intro/rope-knot-5.pdf}
+    \pgfdeclareimage{rke}{../../figures/intro/rope-knot-6.pdf}
+    \pgfdeclareimage{rkf}{../../figures/intro/rope-knot-7.pdf}
+
+    \pgfmathsetmacro{\kx}{3}
+    \pgfmathsetmacro{\ky}{2.5}
+
+    \node (rka) at (-\kx,0) {\pgfuseimage{rka}};
+    \node (rkb) at (\kx,0) {\pgfuseimage{rkb}};
+    \node (rkc) at (-\kx,-\ky) {\pgfuseimage{rkc}};
+    \node (rkd) at (\kx,-\ky) {\pgfuseimage{rkd}};
+    \node (rke) at (-\kx,-2*\ky) {\pgfuseimage{rke}};
+    \node (rkf) at (\kx,-2*\ky) {\pgfuseimage{rkf}};
+
+    % x coordinate for drawing arrows in the center
+    \pgfmathsetmacro{\xc}{.5}
+
+    % And for the sides
+    % X coordinate for leaving on the right side
+    \pgfmathsetmacro{\xlr}{5.25}
+
+    % Coordinates for right bend
+    \pgfmathsetmacro{\xrb}{5.5}
+
+    % coordinates for left bend
+    \pgfmathsetmacro{\xlb}{-5.5}
+
+    % Coordinates for incoming on the left side
+    \pgfmathsetmacro{\xil}{-5}
+
+    \foreach \y in {0,-\ky}{
+      \draw[|-latex, densely dotted] (-\xc, \y) -- (\xc, \y);
+      \draw[|-latex, densely dotted] (\xlr, \y) -- (\xrb, \y) --
+      (\xrb, \y-\ky/2) -- (\xlb, \y-\ky/2) -- (\xlb, \y-\ky) -- (\xil,
+      \y-\ky);
+    }
+
+    \draw[|-latex, densely dotted] (-\xc, -2*\ky) -- (\xc, -2*\ky);
+
+  \end{tikzpicture}
+\end{document}

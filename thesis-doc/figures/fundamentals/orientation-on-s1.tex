@@ -1,0 +1,11 @@
+\documentclass[border=1pt]{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}
+  \pgfmathsetmacro{\r}{1.5}
+  \draw (0,0) circle (\r);
+  \node[fill=black, circle, inner sep=1pt] () at (0,\r) {};
+  \draw[-latex] (-.1,\r+.2) arc (90:135:\r);
+  \draw[-latex] (.1,\r+.2) arc (90:45:\r);
+\end{tikzpicture}
+\end{document}

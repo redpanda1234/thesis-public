@@ -1,0 +1,53 @@
+\documentclass[border=1pt]{standalone}
+% \usepackage[margin=15mm,a3paper,landscape]{geometry}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+
+
+\begin{document}
+\tdplotsetmaincoords{60}{120}
+\begin{tikzpicture}[tdplot_main_coords]% [x={(0.707cm,0.707cm)},z={(0cm,1cm)},y={(-0.866cm,0.5cm)}]
+
+  \pgfmathsetmacro{\zshift}{-3}
+  \tikzset{declare function={myx(\z)=sqrt(\z)*cos(\z*180);}}
+  \tikzset{declare function={myy(\z)=sqrt(\z)*sin(\z*180);}}
+  \tikzset{declare
+    function={myz(\z)=1.5*sqrt(\z/7)*sin(\z*342)*cos(200*\z-2);}}
+
+  \pgfmathsetmacro{\zmax}{3}
+
+
+  \draw[] ({myx(0)}, {myy(0)}, {myz(0)})
+  \foreach \z in {0,0.01,...,\zmax}{
+    -- ({myx(\z)},{myy(\z)},{myz(\z)})
+  };
+
+  \pgfmathsetmacro{\shadegap}{.005}
+  \pgfmathsetmacro{\zend}{\zmax-\shadegap}
+  \foreach \z in {0,\shadegap,...,\zend}{
+    \filldraw[blue!30!white,opacity=0.3]
+    ({myx(\z)},{myy(\z)},\zshift) --
+    ({myx(\z)},{myy(\z)},-\zshift) --
+    ({myx(\z+\shadegap)},{myy(\z+\shadegap)},-\zshift) --
+    ({myx(\z+\shadegap)},{myy(\z+\shadegap)},\zshift) -- cycle;
+    % \fill[gray, opacity=.1]
+    % ({myx(\z)}, {myy(\z)}, -2) --
+    % ({myx(\z)}, {myy(\z)}, 2) --
+    % ({myx(\z+\shadegap)}, {myy(\z+\shadegap)}, 2) --
+  }
+
+
+  \foreach \zz in {\zshift, -\zshift}{
+    \draw[densely dashed, very thin] ({myx(0)},{myy(0)},{\zz})
+    \foreach \z in {0,0.01,...,\zmax}{
+      -- ({myx(\z)},{myy(\z)},{\zz})
+    };
+  }
+  % \filldraw[opacity=.2, gray] (-2,-2,0) -- ++(4,0,0) -- ++(0,4,0) --
+  % ++(-4,0,0) -- cycle
+
+
+  % \node[rotate=90,right=1cm] at (0,0,12) {to floor, gray};
+\end{tikzpicture}
+
+\end{document}

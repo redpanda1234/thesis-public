@@ -1,0 +1,29 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, calc}
+\begin{document}
+\begin{tikzpicture}[scale=1.5]
+  \coordinate (a) at (-1,0);
+  \coordinate (b) at (1,0);
+
+  \node[below] () at (a) {$a$};
+  \node[below] () at (b) {$b$};
+
+  \draw[{Bracket[]}-{Bracket[]}] (a) -- (b);
+
+  % How far to shift the first intervals above the axis
+  \pgfmathsetmacro{\fshift}{.25}
+  \draw[red, {Bracket[]}-{Arc Barb[]}] ($(a) + (0,\fshift)$) -- ($(-.5,0)+(0,\fshift)$);
+
+  % Second shift
+  \pgfmathsetmacro{\sshift}{.5}
+  \draw[green!80!black, {Arc Barb[]}-{Arc Barb[]}] ($(-.25,0) + (0,\sshift)$) -- ($(.25,0)+(0,\sshift)$);
+
+  % Third shift
+  \pgfmathsetmacro{\tshift}{.75}
+  \draw[blue, {Bracket[]}-{Arc Barb[]}] ($(b) + (0,\tshift)$) -- ($(.5,0)+(0,\tshift)$);
+
+
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,32 @@
+\documentclass[border=1pt]{standalone}
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}
+  \def\mywidth{2cm}
+  \def\mysep{2.5}
+
+  \pgfmathsetmacro{\xa}{0}
+  \pgfmathsetmacro{\xb}{\xa + \mysep}
+  \pgfmathsetmacro{\xc}{\xb + \mysep}
+  \pgfmathsetmacro{\xd}{\xc + \mysep}
+
+
+  \pgfmathsetmacro{\ya}{0}
+  \pgfmathsetmacro{\yb}{\ya}
+  \pgfmathsetmacro{\yc}{\ya}
+  \pgfmathsetmacro{\yd}{\yc}
+
+  \pgfdeclareimage[width=\mywidth]{uo}{uo_crossings.pdf}
+  \node (uo) at (\xa,\ya) {\pgfuseimage{uo}};
+
+  \pgfdeclareimage[width=\mywidth]{uo1}{uo_crossings_1.pdf}
+  \node (uo1) at (\xb,\yb) {\pgfuseimage{uo1}};
+
+  \pgfdeclareimage[width=\mywidth]{uo2}{uo_crossings_2.pdf}
+  \node (uo2) at (\xc,\yc) {\pgfuseimage{uo2}};
+
+  \pgfdeclareimage[width=\mywidth]{uo3}{uo_crossings_3.pdf}
+  \node (uo3) at (\xd,\yd) {\pgfuseimage{uo3}};
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,11 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\begin{document}
+\begin{tikzpicture}
+  \pgfdeclareimage{fa}{loops-no-boxes.pdf};
+  \node () at (0,0) {\pgfuseimage{fa}};
+  % \filldraw[fill=red!90!white, draw=black, dotted, opacity=.3] (7,-5) circle (2cm);
+  % \draw[dotted] (0, -10) -- (8, -3);
+\end{tikzpicture}
+\end{document}

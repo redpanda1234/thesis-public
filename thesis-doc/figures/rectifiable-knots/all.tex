@@ -1,0 +1,22 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+
+
+\begin{document}
+\begin{tikzpicture}
+  \pgfdeclareimage{k0}{koch-knot-0.pdf}
+  \pgfdeclareimage{k1}{koch-knot-1.pdf}
+  \pgfdeclareimage{k2}{koch-knot-2.pdf}
+  \pgfdeclareimage{k3}{koch-knot-3.pdf}
+  \pgfdeclareimage{k4}{koch-knot-4.pdf}
+  \pgfdeclareimage{k5}{koch-knot-5.pdf}
+
+  \node () at (0,0) {\pgfuseimage{k0}};
+  \node () at (100,0) {\pgfuseimage{k1}};
+  \node () at (200,0) {\pgfuseimage{k2}};
+  \node () at (0, -100) {\pgfuseimage{k3}};
+  \node () at (100, -100) {\pgfuseimage{k4}};
+  \node () at (200, -100) {\pgfuseimage{k5}};
+
+\end{tikzpicture}
+\end{document}

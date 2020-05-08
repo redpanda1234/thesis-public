@@ -1,0 +1,68 @@
+\documentclass{standalone}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{colorbrewer,patchplots}
+\pgfplotsset{compat=1.16}
+
+\begin{document}
+\begin{tikzpicture}[
+  scale=1.5,
+  declare function = {
+    a(\x, \y) = 3*(1-\x)^2 * exp(-(\x^2)-(\y+1)^2);
+    b(\x, \y) = -10*(\x/5 - \x^3 + \y^5) * exp(-\x^2 - \y^2);
+    c(\x, \y) = -exp(-(\x+1)^2 - \y^2)/3;
+    Z(\x, \y) = a(\x,\y) + b(\x,\y) + c(\x,\y);
+  }
+  ]
+  \begin{axis}[
+    % view={225}{50},
+    hide x axis,
+    hide y axis,
+    hide z axis,
+    domain=-3.5:3.5,
+    % samples=60,
+    view = {0}{90},
+    % colormap={violet}{rgb=(0.3,0.06,0.5), rgb=(0.9,0.9,0.85)},
+    colorbar,
+    % point meta max=-0.1,
+    % point meta min=-3,
+    samples=60
+    ]
+    \addplot3[contour filled={number=60, labels={false}}] {Z(x,y)};
+    \addplot3 [
+    % increase a bit the number of samples so `smooth' does a good job
+    samples   = 150,
+    samples y = 150,
+    contour gnuplot={
+      % state at which levels you want to draw the contour lines
+      levels={-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13},
+      % we don't want to add labels
+      labels=false,
+      % they should be drawn in black
+      draw color=black,
+      % and they should be smoothed
+      handler/.style=smooth,
+    },
+    ] {Z(x,y)};
+
+
+  \end{axis}
+\end{tikzpicture}
+
+% \begin{tikzpicture}
+
+% \begin{axis}[
+%     domain = 1:2,
+%     %y domain = 0:90,
+%     y domain = 74:87.9,
+
+%     ]
+
+%     \addplot3[
+%         contour filled={number = 30,labels={false}},
+%             thick
+%         ]{-2.051^3*1000/(2*3.1415*(2.99*10^2)^2)/(x^2*cos(y)^2)};
+
+% \end{axis}
+% \end{tikzpicture}
+\end{document}

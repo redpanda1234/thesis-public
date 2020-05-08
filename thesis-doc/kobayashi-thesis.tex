@@ -1,0 +1,163 @@
+%%% Template File for Use with the hmcthesis.cls.
+%%%
+%%% C.M. Connelly <cmc@math.hmc.edu>
+%%%
+%%% Version 5.1
+
+
+\documentclass[math]{hmcthesis}
+
+% Math packages
+\usepackage{fkthesis}
+
+
+\allowdisplaybreaks
+
+
+\title{Where the Wild Knots Are}
+\author{Forest Kobayashi}
+
+\advisor{Francis Su}
+\reader{Sam Nelson}
+\thesisyear{2020}
+
+
+
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+
+%%% Abstract
+
+\begin{abstract}
+  The new work in this document can be broken down into two main
+  parts.
+
+  In the first, we introduce a formalism for viewing the \emph{signed
+    Gauss code} for virtual knots in terms of an action of the
+  symmetric group on a countable set. This is achieved by creating a
+  ``standard unknot'' whose diagram contains countably-many crossings,
+  and then representing tame knots in terms of the action of
+  permutations with finite support; wild knots with topologically
+  discrete crossing sets can be encoded by permutations for which the
+  ``finite support'' condition is dropped. We present some preliminary
+  computational results regarding the group operation given by this
+  encoding, but do not explore it in detail. We then discuss some of
+  the main challenges to working with this representation, and finish
+  with a discussion of directions for future work.
+
+  To make the encoding above formal, we require the aforementioned
+  ``unknot with a countable sequence of crossings;'' building up the
+  machinery to work with these kinds of objects is the focus of the
+  second part of the project. Note that initially, the presence of
+  infinitely-many crossing might appear to be a contradiction to the
+  finiteness constraint in Reidemeister's theorem; we show that this
+  is not the case, and introduce the notion of \emph{feral points} to
+  represent areas of our diagrams in which it is not immediately
+  obvious whether the knot is \emph{wild} or \emph{tame}. Our
+  countable-crossing unknot possesses such a point. We employ uniform
+  convergence to create sufficient conditions for guaranteeing the
+  preservation of ambient isotopy under limits, and resolve a seeming
+  contradiction given by the wild arc of Fox-Artin. Finally, we show
+  that any knot (wild or tame) whose crossings are topologically
+  discrete in a 2D diagram is ambient isotopic to a countable union of
+  polygonal segments, and discuss implications for extending
+  Reidemeister's theorem in this context.
+\end{abstract}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+
+
+%%% Acknowledgments.
+
+\begin{acknowledgments}
+  I am grateful to Edward P.\ Moore, my English teacher throughout
+  much of high school. He never stopped believing in me or encouraging
+  me to do the same. Thank you Mr.\ Moore --- I'm sorry about the page
+  count. It seems that despite your best efforts, I still have a
+  tendency to write a lot.
+
+  Thank you to Professor Francis Su and Professor Sam Nelson for all
+  their guidance throughout this project. And thank you to Professor
+  Ken Fandell for encouraging me to view math (like art) as an
+  opportunity for creativity and self-expression. Finally, thank you
+  to all of the incredible professors I've had at the Claremont
+  Colleges. Your dedication to your students and your work will always
+  inspire me.
+\end{acknowledgments}
+
+
+\renewcommand{\textflush}{flushright}
+\renewcommand{\epigraphflush}{flushright}
+
+
+\input{chapters/preface/preface.tex}
+
+\mainmatter
+
+
+\input{chapters/intro/intro.tex}
+
+\part{Fundamentals of Knot Theory}\label{part:fundamentals}
+\input{chapters/fundamentals/fundamentals.tex}
+
+\input{chapters/fundamentals/knots-and-knot-diagrams.tex}
+
+\part{Combinatorial
+  Representations}\label{part:unknotting-moves-and-combinatorial-representations}
+\def\figdir{figures/unknotting-moves-and-combinatorial-representations}
+
+
+\input{chapters/unknotting-moves-and-combinatorial-representations/combinatorial-representations.tex}
+
+\input{chapters/unknotting-moves-and-combinatorial-representations/virtual-knots.tex}
+
+\input{chapters/unknotting-moves-and-combinatorial-representations/connections-to-sn.tex}
+
+
+\part{Wild Knots}\label{part:wild-knots}
+\def\figdir{figures/wild}
+
+\input{chapters/wild/tameness-and-wildness.tex}
+
+\input{chapters/wild/machinery.tex}
+
+\input{chapters/wild/ambient-isotopy-in-r2.tex}
+
+\input{chapters/wild/moving-into-r3.tex}
+
+\input{chapters/wild/summary.tex}
+
+
+% Appendix
+
+\part{Appendix}\label{part:appendix}
+
+\appendix
+
+\input{chapters/appendix/smoothish-gallery.tex}
+\input{chapters/appendix/PL-topology.tex}
+\input{chapters/appendix/misc.tex}
+
+\backmatter
+
+\nocite{*}
+
+\bibliographystyle{hmcmath}
+
+\bibliography{kobayashi-thesis.bib}
+
+\end{document}
+
+
+%%% Local Variables:
+%%% TeX-master: t
+%%% TeX-command-extra-option: -pdf
+%%% End:

@@ -1,0 +1,48 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}[every node/.style={scale=.75, circle, draw, fill=none,
+    inner sep=0pt, text width=1.75em, align=center}, scale=4]
+
+\node[fill=black!80!white, text=white] (1) at (1, 0)
+{$1_{\phantom{o}}^{\rm mid}$};
+\node[ultra thin] (1uin) at (0.7, 0.0) {$1_u^{\rm in}$};
+\node[ultra thin] (1uout) at (1.3, 0.0) {$1_u^{\rm out}$};
+\node[fill=black!80!white, text=white] (1oin) at (1.0, 0.3) {$1_o^{\rm in}$};
+\node[fill=black!80!white, text=white] (1oout) at (1.0, -0.3) {$1_o^{\rm out}$};
+\draw[line width=3pt, black!80!white] (1oin) -- (1) -- (1oout);
+\draw[double, double distance=3pt] (1uout) -- (1) -- (1uin);
+\draw[black!80!white, dotted, thick] (1uin) -- (1oin) (1uout) -- (1oout) (1uin) -- (1oout) (1uout) -- (1oin);
+\node[fill=black!80!white, text=white] (2) at (2, 0)
+{$2_{\phantom{o}}^{\rm mid}$};
+\node[ultra thin] (2uin) at (2.0, -0.3) {$2_u^{\rm in}$};
+\node[ultra thin] (2uout) at (2.0, 0.3) {$2_u^{\rm out}$};
+\node[fill=black!80!white, text=white] (2oin) at (1.7, 0.0) {$2_o^{\rm in}$};
+\node[fill=black!80!white, text=white] (2oout) at (2.3, 0.0) {$2_o^{\rm out}$};
+\draw[line width=3pt, black!80!white] (2oin) -- (2) -- (2oout);
+\draw[double, double distance=3pt] (2uout) -- (2) -- (2uin);
+\draw[black!80!white, dotted, thick] (2uin) -- (2oin) (2uout) -- (2oout) (2uin) -- (2oout) (2uout) -- (2oin);
+
+\draw[] (.5,0) -- (1uin) (1,.5) -- (1oin) (1, -.5) -- (1oout)
+        (1uout) -- (2oin)
+        (2.5,0) -- (2oout) (2,.5) -- (2uout) (2, -.5) -- (2uin);
+
+\draw[dashed] (1uout)  -- (2uout) (1oout) -- (2oin);
+
+\node[rectangle, draw=none, text width=8em] (added) at (1.5, .45) {Edge added by 4};
+\draw[->] (added) .. controls (1.5, .3) and (1.3, .4) .. (1.4, .275) ..
+controls (1.5, .15) and (1.5, .4) .. (1.6, .175);
+
+\begin{scope}[yscale=-1]
+\begin{scope}[xscale=-1, xshift=-8.55em]
+\node[rectangle, draw=none, text width=8em] (added2) at (1.5, .45) {Edge added by 4};
+\draw[->] (added2) .. controls (1.5, .3) and (1.3, .4) .. (1.4, .275) ..
+controls (1.5, .15) and (1.5, .4) .. (1.6, .175);
+\end{scope}
+
+\end{scope}
+
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="63.950111mm"
+   height="15.149247mm"
+   viewBox="0 0 63.950111 15.149247"
+   version="1.1"
+   id="svg3067"
+   inkscape:version="0.92.4 5da689c313, 2019-01-14"
+   sodipodi:docname="rope-knot-2.svg">
+  <defs
+     id="defs3061" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.24748737"
+     inkscape:cx="-1191.3365"
+     inkscape:cy="-257.9351"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1421"
+     inkscape:window-height="859"
+     inkscape:window-x="1445"
+     inkscape:window-y="54"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3064">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-19.801113,-65.438758)">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.16175815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 19.881284,75.783586 c 1.111933,-8.346281 11.056283,-10.496376 18.114738,-10.244638 11.536983,0.61677 20.179399,9.235885 30.074046,14.035618 5.340117,2.01495 11.889266,0.756148 15.619084,-3.709281"
+       id="path1437"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

@@ -1,0 +1,82 @@
+\documentclass[border=1pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{intersections, decorations.pathreplacing}
+
+
+\begin{document}
+\begin{tikzpicture}[every node/.style={scale=1.5}]
+
+
+  % Radius of the ball
+  \pgfmathsetmacro{\r}{2*sqrt(2)}
+
+  % Use a 45-45-90 triangle for the edges
+  \coordinate (side1end) at (-2, -2);
+  \coordinate (side2end) at (2, -2);
+
+  \draw[name path=edges] (side1end) -- (0,0) -- (side2end);
+
+  % Extend them past our epsilon ball with dotted segments
+  \coordinate (side1ext) at (-3, -3);
+  \coordinate (side2ext) at (3, -3);
+
+  \draw[dashed] (side1end) -- (side1ext);
+  \draw[dashed] (side2end) -- (side2ext);
+
+  % Iterate through theta values
+  \foreach \t in {0, 1, ..., 90}{
+    \pgfmathsetmacro{\tstart}{\t + 225}
+    \pgfmathsetmacro{\tend}{225-3*\t}
+
+    \pgfmathsetmacro{\xstart}{\r * cos(\tstart)}
+    \pgfmathsetmacro{\ystart}{\r * sin(\tstart)}
+
+    \pgfmathsetmacro{\xend}{\r * cos(\tend)}
+    \pgfmathsetmacro{\yend}{\r * sin(\tend)}
+
+    \path[name path=line] (\xstart, \ystart) -- (\xend, \yend);
+
+
+
+    \draw[thin, red!70!white, name intersections={of=edges and line, total=\mytot}]
+    \foreach \s in {\mytot}{
+      (intersection-\s) -- (\xend, \yend)
+    };
+
+    \draw[thin, blue!70!white, name intersections={of=edges and line, total=\mytot}]
+    \foreach \s in {\mytot}{
+      (intersection-\s) -- (\xstart, \ystart)
+    };
+
+    % \draw[blue!70!white, name intersections={of=edges and line, total=\mytot}]
+    % \foreach \s in {0,...,\mytot}{
+    %   (intersection-\s) -- (\xstart, \ystart) {}
+    % };
+
+  }
+
+
+  % Draw the circle
+  % \draw (x) circle (\r);
+
+  \draw (side1end) -- (0,0) -- (side2end);
+  \node[fill=black, circle, inner sep=1pt] (x) at (0,0) {};
+
+  \fill[red!70!white, opacity=.1] (side2end) arc (-45:225:\r) -- (0,0)
+  -- (side2end);
+  \draw[red, thick] (2, -2) arc(-45:225:\r) node[midway, above] {$A_1$};
+  % \node[red] () at (0, 1.5) {$R_1$};
+
+  \fill[blue!70!white, opacity=.1] (side1end) -- (0,0) -- (side2end)
+  arc (315:225:\r) --cycle;
+  \draw[blue, thick] (-2, -2) arc(225:315:\r) node[midway, below] {$A_2$};
+  % \node[blue] () at (0, -1.5) {$R_2$};
+
+  % \fill[red!70!white, opacity=.1] (side1end) -- (0,0) -- (side2end)
+  % arc(-45:225:\r);
+  % \fill[red!70!white, opacity=.1] (side1end) -- (0,0) -- (side2end)
+  % arc(-45:225:\r);
+
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,22 @@
+\documentclass{standalone}
+\usepackage{tikz, fkmath, knotmoves}
+\begin{document}
+\begin{tikzpicture}
+  % \pgfdeclareimage[height=0.45cm]{logo}{example-image-a}
+  \begin{scope}[xshift=-1.5cm, rotate=90]
+    \fill[white] (1,0) circle (.38);
+    \node[rotate=270] () at (1.16,0) {\ri};
+    \fill[white] (1.16,0) circle (.435);
+    \draw[line width=.15pt] (0,0) circle (1);
+    % \fill[white] (1,0) circle (.37);
+  \end{scope}
+
+  \node (cong) at (0,0) {\Large $\cong$};
+
+  \begin{scope}[xshift=1.5cm, rotate=90]
+    \draw[line width=.15pt] (0,0) circle (1);
+    \fill[white] (1,0) circle (.38);
+    \node[rotate=270] () at (1.16,0) {\ri};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

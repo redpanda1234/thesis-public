@@ -1,0 +1,18 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}
+  \draw[-latex, red!60!white, dotted, very thick] (2, 0) -- (-1,
+  0);
+
+  \draw[white, line width=12pt] (0, 1) -- (0, -1) -- (1, -1) -- (1, 1);
+
+  \draw[-latex, blue!50!white, dashed, very thick] (0, 1) -- (0, -1)
+  -- (1, -1) -- (1, 1);
+
+  \node[magenta, above left] () at (0,0) {\small $6^-$};
+  \node[magenta, above right] () at (1,0) {\small $7^+$};
+
+\end{tikzpicture}
+\end{document}

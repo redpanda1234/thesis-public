@@ -1,0 +1,124 @@
+\documentclass{standalone}
+\usepackage{fkmath}
+\usepackage{tikz}
+\makeatletter
+\tikzset{use path/.code=\tikz@addmode{\pgfsyssoftpath@setcurrentpath#1}}
+\makeatother
+\begin{document}
+\begin{tikzpicture}[every node/.style={scale=1.25}]
+
+  \def\defHalfReidII{
+
+    \coordinate (p1) at (-.5, 1.325) {};
+    \coordinate (p2) at (0.46, 0) {};
+    \coordinate (p3) at (-.5, -1.325) {};
+
+    \coordinate (c1) at (0.4, .8) {};
+    \coordinate (c2) at (0.45, .3) {};
+    \coordinate (c3) at (0.45, -.3) {};
+    \coordinate (c4) at (.4, -.8) {};
+
+    % \path (p1)
+    \path[save path=\HalfR, name path=Lower] (p1) .. controls (c1) and (c2) .. (p2) .. controls (c3) and (c4) .. (p3);
+  }
+
+  \pgfmathsetmacro{\bshift}{6}
+  \pgfmathsetmacro{\cshift}{2*\bshift}
+  \pgfmathsetmacro{\dshift}{3*\bshift}
+  \pgfmathsetmacro{\bshiftcm}{\bshift cm}
+  \pgfmathsetmacro{\cshiftcm}{\cshift cm}
+  \pgfmathsetmacro{\dshiftcm}{\dshift cm}
+
+  \begin{scope}
+    \defHalfReidII
+
+    \draw[-latex, use path=\HalfR];
+
+    \begin{scope}[xscale=-1, yscale=1]
+      \def\pointCols{\theNextPCol}
+      \def\controlPointCols{\theNextCCol}
+      \defHalfReidII
+
+      \draw[white, line width=7pt, use path=\HalfR];
+      \draw[-latex, use path=\HalfR];
+    \end{scope}
+    \draw[dotted] (0,0) circle (1.41);
+
+    \node (ai) at (-.5,-.9) {$j$};
+    \node (aj) at (-.5,.9) {$i$};
+
+    \node (ak) at (0, -2) {$(\cdots, {\color{red} i_u^+}, {\color{red} j_u^-}, \cdots, {\color{red} i_o^+}, {\color{red} j_o^-}, \cdots)$};
+  \end{scope}
+
+  \begin{scope}[xshift=\bshiftcm, xscale=-1]
+    \defHalfReidII
+
+    \draw[-latex, use path=\HalfR];
+
+    \begin{scope}[xscale=-1, yscale=1]
+      \def\pointCols{\theNextPCol}
+      \def\controlPointCols{\theNextCCol}
+      \defHalfReidII
+
+      \draw[white, line width=7pt, use path=\HalfR];
+      \draw[-latex, use path=\HalfR];
+    \end{scope}
+    \draw[dotted] (0,0) circle (1.41);
+
+    \node (bi) at (.5,-.9) {$j$};
+    \node (bj) at (.5,.9) {$i$};
+    \node (bk) at (0, -2) {$(\cdots, {\color{red} i_o^-}, {\color{red} j_o^+}, \cdots, {\color{red} i_u^-}, {\color{red} j_u^+}, \cdots)$};
+
+  \end{scope}
+
+  \begin{scope}[xshift=\cshiftcm]
+    \defHalfReidII
+
+    \draw[-latex, use path=\HalfR];
+
+    \begin{scope}[xscale=-1, yscale=1]
+      \def\pointCols{\theNextPCol}
+      \def\controlPointCols{\theNextCCol}
+      \defHalfReidII
+
+      \draw[white, line width=7pt, use path=\HalfR];
+      \draw[latex-, use path=\HalfR];
+    \end{scope}
+    \draw[dotted] (0,0) circle (1.41);
+
+    \node (ci) at (-.5,-.9) {$j$};
+    \node (cj) at (-.5,.9) {$i$};
+
+    \node (ck) at (0, -2) {$(\cdots, {\color{red} i_u^-}, {\color{red} j_u^+}, \cdots, {\color{red} j_o^+}, {\color{red} i_o^-}, \cdots)$};
+  \end{scope}
+
+  \begin{scope}[xshift=\dshiftcm, xscale=-1]
+    \defHalfReidII
+
+    \draw[latex-, use path=\HalfR];
+
+    \begin{scope}[xscale=-1, yscale=1]
+      \def\pointCols{\theNextPCol}
+      \def\controlPointCols{\theNextCCol}
+      \defHalfReidII
+
+      \draw[white, line width=7pt, use path=\HalfR];
+      \draw[-latex, use path=\HalfR];
+    \end{scope}
+    \draw[dotted] (0,0) circle (1.41);
+
+    \node (di) at (.5,-.9) {$j$};
+    \node (dj) at (.5,.9) {$i$};
+
+    \node (dk) at (0, -2) {$(\cdots, {\color{red} i_o^+}, {\color{red} j_o^-}, \cdots, {\color{red} j_u^-}, {\color{red} i_u^+}, \cdots)$};
+  \end{scope}
+
+  % \node (ai) at (0,-.75) {$i$};
+  % \node (bi) at (\bshift,-.75) {$i$};
+  % \node (ci) at (\cshift,.35) {$i$};
+  % \node (di) at (\dshift,.35) {$i$};
+
+
+
+\end{tikzpicture}
+\end{document}

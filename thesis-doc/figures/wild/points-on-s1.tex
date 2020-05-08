@@ -1,0 +1,17 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}
+  \pgfmathsetmacro{\r}{2}
+  \draw (0,0) circle (\r);
+  \foreach \t/\lab in {.3/s00, .42/s01, .77/s02}{
+    \pgfmathsetmacro{\t}{360*\t + 90}
+    \pgfmathsetmacro{\x}{\r*cos(\t)}
+    \pgfmathsetmacro{\y}{\r*sin(\t)}
+    \node[circle, fill=black, inner sep=1pt] (\lab) at (\x, \y) {};
+  }
+  \node[below left] () at (s00) {$s_{0}$};
+  \node[below] () at (s01) {$s_{1}$};
+  \node[right] () at (s02) {$s_{2}$};
+\end{tikzpicture}
+\end{document}

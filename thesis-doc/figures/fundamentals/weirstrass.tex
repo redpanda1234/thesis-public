@@ -1,0 +1,41 @@
+\documentclass{standalone}
+\usepackage{pgfplots}
+
+\makeatletter
+\pgfmathdeclarefunction{weierstrass}{4}{%
+    \pgfmathfloattofixed@{#4}%
+    \afterassignment\pgfmath@x%
+    \expandafter\c@pgfmath@counta\pgfmathresult pt\relax%
+    \pgfmathfloatcreate{1}{0.0}{0}%
+    \let\pgfmathfloat@loc@TMPr=\pgfmathresult
+    \pgfmathfloatpi@%
+    \let\pgfmathfloat@loc@TMPp=\pgfmathresult%
+    \edef\pgfmathfloat@loc@TMPx{#1}%
+    \edef\pgfmathfloat@loc@TMPa{#2}%
+    \edef\pgfmathfloat@loc@TMPb{#3}%
+    \pgfmathloop
+        \ifnum\c@pgfmath@counta>-1\relax%
+            \pgfmathfloatparsenumber{\the\c@pgfmath@counta}%
+            \let\pgfmathfloat@loc@TMPn=\pgfmathresult%
+            \pgfmathpow{\pgfmathfloat@loc@TMPa}{\pgfmathfloat@loc@TMPn}%
+            \let\pgfmathfloat@loc@TMPe=\pgfmathresult%
+            \pgfmathpow{\pgfmathfloat@loc@TMPb}{\pgfmathfloat@loc@TMPn}%
+            \pgfmathmultiply{\pgfmathresult}{\pgfmathfloat@loc@TMPp}%
+            \pgfmathmultiply{\pgfmathresult}{\pgfmathfloat@loc@TMPx}%
+            \pgfmathdeg{\pgfmathresult}%
+            \pgfmathcos{\pgfmathresult}%
+            \pgfmathmultiply{\pgfmathresult}{\pgfmathfloat@loc@TMPe}%
+            \pgfmathadd{\pgfmathresult}{\pgfmathfloat@loc@TMPr}%
+            \let\pgfmathfloat@loc@TMPr=\pgfmathresult
+            \advance\c@pgfmath@counta by-1\relax%
+    \repeatpgfmathloop%
+}
+
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[axis lines=middle, xscale=2]
+\addplot [black, samples=2001, line join=round, domain=-2:2]
+{weierstrass(x,0.5,3,11)};
+\end{axis}
+\end{tikzpicture}
+\end{document}

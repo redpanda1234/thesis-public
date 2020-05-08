@@ -1,0 +1,291 @@
+% ================================================================== %
+%                                                                    %
+%                         Requirement Things                         %
+%                                                                    %
+% ================================================================== %
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fkthesis}[2018/10/23 v0.01 math macro package]
+%% Just to be extra clear: called fkthesis because those are my
+%% initials. Not an explitive.
+
+
+
+% ================================================================== %
+%                                                                    %
+%                              Packages                              %
+%                                                                    %
+% ================================================================== %
+
+\RequirePackage{lmodern}
+\RequirePackage{fkmath}
+\RequirePackage{float}
+
+% Some
+\RequirePackage{knotmoves}
+
+%
+\RequirePackage{tipa}
+\RequirePackage{kotex}
+\RequirePackage{kana}
+\newcommand{\kikko}[1]{\scalerel*{〔}{\left(#1\right)} #1
+  \scalerel*{〕}{\left(#1\right)}}
+
+\newcommand{\maru}{〇}
+
+% For typesetting logos of LaTeX engines
+\usepackage{dtk-logos}
+\newcommand{\ipa}[1]{[\textipa{#1}]}
+
+
+% I mean it'll get loaded anyways but whatever
+\RequirePackage{amsthm}
+
+% For chapter quotes
+\RequirePackage{epigraph}
+
+% For close-up zooms in diagrams, and for adding points together and stuff
+\usetikzlibrary{spy, calc, arrows}
+
+%%% Load hyperref.
+\RequirePackage[breaklinks=true,
+  bookmarks,
+  pdfpagemode=UseOutlines,
+  pdfpagelayout=SinglePage,
+  colorlinks=true,
+  ]{hyperref}
+
+% Better cross-referencing behavior
+\RequirePackage{aliascnt}
+\RequirePackage[capitalize]{cleveref}
+
+% For adjusting spacing
+\RequirePackage{changepage}
+
+% For defining tables that span multiple pages
+\RequirePackage{longtable}
+
+% Code listing
+% \RequirePackage{fkmisc}
+\RequirePackage{jlcode}
+
+% Make the footnotes stick to the bottom of the page when we have an
+% automatic break for big diagrams and such.
+\RequirePackage[bottom]{footmisc}
+
+% For redacting things.
+\RequirePackage{censor}
+
+% Exclusively for 囧 as contradiction symbol
+\RequirePackage{CJKutf8}
+
+% For making some pages landscape mode
+\RequirePackage{pdflscape}
+\RequirePackage{rotating}
+\RequirePackage{rotfloat}
+
+% For multiple columns
+\RequirePackage{multicol}
+
+% Subfigures
+\RequirePackage{subcaption}
+
+% For typesetting interiors
+\RequirePackage{accents}
+
+% ================================================================== %
+%                                                                    %
+%                             Math Macros!                           %
+%                                                                    %
+% ================================================================== %
+
+% Noun phrase wrapping
+\newcommand{\np}[1]{\hspace{-.55em}〔#1〕\hspace{-.55em}}
+
+% ----------------------- General Math Stuff ----------------------- %
+
+\newcommand{\flipmove}[2][]{%
+  \begin{tikzpicture}[#1]
+    % Scale how far away from the center of the node we are. The
+    % computation goes like
+    %
+    % (Width of node) / \xgapscale
+    %
+    % So it's actually inversely-proportional
+    \pgfmathsetmacro{\xgapscale}{2.3}
+
+    % Similar to the above, but in y.
+    \pgfmathsetmacro{\ygapscale}{2.3}
+
+    % How far to bend the arrows outwards (tangent angle of the tail
+    % of the arrow when it departs the starting point, I think)
+    \pgfmathsetmacro{\bend}{30}
+
+    % Define a node containing the text we want to wrap in our
+    % arrow-tipped parens. We need this so we can calculate its
+    % dimensions, which lets us figure out where to start / stop the
+    % arrows.
+    \node (text) at (0,0) {\ensuremath{#2}};
+
+    % Draw the wrapping arrows.
+    %
+    % For some reason, the code below breaks whenever I try to use
+    % names like `\w1' or `\h1' in the let statements.
+    %
+    % This solution is based on stuff from this thread:
+    % https://tex.stackexchange.com/questions/336257/tikz-get-width-of-node-that-shoulnt-be-drawn
+    \draw[->] let
+    \p1=($(text.west)-(text.east)$),   % Get the width
+    \p2=($(text.north)-(text.south)$), % And height
+    \n1={veclen(\p1)-\pgflinewidth},
+    \n2={veclen(\p2)}
+    in
+    (-\n1/\xgapscale,-\n2/\ygapscale) to[bend left=\bend] (-\n1/\xgapscale, \n2/\ygapscale)
+    (\n1/\xgapscale,\n2/\ygapscale) to[bend left=\bend] (\n1/\xgapscale, -\n2/\ygapscale);
+
+  \end{tikzpicture}
+}
+
+
+% Custom QED box:
+\newcommand\jiong{\text{\begin{CJK*}{UTF8}{bsmi}囧\end {CJK*}}}
+% \renewcommand\qedsymbol\jiong
+
+% Radial interior and affine stuff
+\DeclareMathOperator{\rint}{rint}
+\DeclareMathOperator{\aff}{aff}
+
+% For encountering things while traversing S^1
+\DeclareMathOperator*{\sprecpre}{\prec}
+\DeclareMathOperator*{\spreceqpre}{\preceq}
+\DeclareMathOperator{\sprec}{\sprecpre^{\circlearrowleft}}
+\DeclareMathOperator{\spreceq}{\spreceqpre^{\circlearrowleft}}
+
+% Standard topology in S^1
+\newcommand{\tcirc}{\ms T_{\circlearrowleft}}
+
+% Ball of radius epsilon in S^1
+\newcommand{\bcirc}{B^\circlearrowleft}
+
+% For open intervals in S^1
+\newcommand{\spn}[1]{\pn{#1}_{\circlearrowleft}}
+\newcommand{\sbk}[1]{\bk{#1}_{\circlearrowleft}}
+\newcommand{\spb}[1]{\pb{#1}_{\circlearrowleft}}
+\newcommand{\sbp}[1]{\bp{#1}_{\circlearrowleft}}
+
+% Redefine image and preimage commands
+\renewcommand{\fim}[2]{\overrightarrow{#1}\pn{#2}}
+\renewcommand{\fpre}[2]{\overleftarrow{#1}\pn{#2}}
+
+% Uniform convergence
+\newcommand{\uconv}{\xrightarrow{u}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+
+% Need to alias the counters so that cleverref can handle the names
+% properly
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+\crefname{lemma}{Lemma}{Lemmas}
+
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
+\crefname{corollary}{Corollary}{Corollarys}
+
+
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+\crefname{proposition}{Proposition}{Propositions}
+
+
+% Not necessary here because it uses its own counter
+\newtheorem{conjecture}{Conjecture}
+
+
+% And so on with definitions!
+\newtheoremstyle{lightdefinition}   % name
+    {1em}                           % Space above
+    {1em}                           % Space below
+    {\small\rmfamily}                     % Body font
+    {}                              % Indent amount
+    {\bfseries}                     % Theorem head font
+    {.}                             % Punctuation after theorem head
+    {.5em}                          % Space after theorem head
+    {}  % Theorem head spec (can be left empty, meaning ‘normal’)
+
+\theoremstyle{lightdefinition}
+\newtheorem{factx}{Fact}[chapter]
+\newtheorem{definitionx}{Definition}[chapter]
+\newtheorem{commondefx}{Common Definition}
+\newtheorem{questionx}{Question}
+\newtheorem{problemx}{Problem}[chapter]
+\newtheorem{examplex}{Example}[chapter]
+\newtheorem{counterexamplex}[examplex]{Counterexample}
+\newtheorem{attemptx}{Attempt}
+
+
+
+
+\newenvironment{definition}
+{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\definitionx}
+{\popQED\enddefinitionx}
+\newenvironment{commondef}
+{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\commondefx}
+{\popQED\endcommondefx}
+\newenvironment{fact}
+{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\factx}
+{\popQED\endfactx}
+\newenvironment{question}
+{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\questionx}
+{\popQED\endquestionx}
+\newenvironment{problem}
+{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\problemx}
+{\popQED\endproblemx}
+\newenvironment{example}
+{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\examplex}
+{\popQED\endexamplex}
+\newenvironment{counterexample}
+{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\jiong$}\counterexamplex}
+{\popQED\endcounterexamplex}
+\newenvironment{attempt}
+{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\attemptx}
+{\popQED\endattemptx}
+
+\newtheorem*{aside}{Aside}
+\newtheorem*{claim}{Claim}
+\newtheorem*{note}{Note}
+\newtheorem*{notation}{Notation}
+\newtheorem*{summary}{Summary}
+\newtheorem*{remark}{Remark}
+
+% `Small' proof environment (lemmas and such)
+\newenvironment{sproof}[1][Proof]
+{\begin{proof}[#1]\renewcommand{\qedsymbol}{$\square$}}
+{\popQED\end{proof}}
+
+% leftbar --> useful environment for proving lemmas and the like
+\newmdenv[
+  skipabove=5,
+  skipbelow=5,
+  innerleftmargin = .5em,
+  innertopmargin = .5em,
+  innerbottommargin = .5em,
+  innerrightmargin = 0pt,
+  rightmargin = 0pt,
+  leftmargin = 2em,
+  linewidth = 2pt,
+  topline = false,
+  rightline = false,
+  bottomline = false
+  ]{leftbarx}
+
+  \renewenvironment{leftbar}
+  {\vspace{3pt}\begin{adjustwidth}{1.5em}{}\begin{leftbarx}}
+      {\end{leftbarx}\end{adjustwidth}}
+
+% Include a more detailed table of contents
+\setcounter{tocdepth}{1}

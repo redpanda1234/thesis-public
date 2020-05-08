@@ -1,0 +1,18 @@
+\documentclass[border=2pt]{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}
+  \pgfmathsetmacro{\r}{1.8}
+  \draw[-stealth, white] (\r,0) arc (0:360:\r);
+
+  \draw[-latex] (-1,1) -- (1,-1);
+  \draw[white, line width=8pt] (1,1) -- (-1,-1);
+  \draw[latex-] (1,1) -- (-1,-1);
+
+
+  \pgfmathsetmacro{\r}{1.8}
+  \draw[-stealth] (\r,0) arc (0:90:\r);
+
+  \draw[dotted] (0,0) circle (1.41);
+\end{tikzpicture}
+\end{document}

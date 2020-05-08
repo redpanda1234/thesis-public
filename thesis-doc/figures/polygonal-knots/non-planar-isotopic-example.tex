@@ -1,0 +1,14 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}
+  \pgfdeclareimage{41}{4-1-polygonal.pdf};
+  \pgfdeclareimage{41k}{4-1-kinked-polygonal.pdf};
+
+  \node (41) at (0,0) {\pgfuseimage{41}};
+  \node (41k) at (9,.2) {\pgfuseimage{41k}};
+
+  \node[scale=1.25] () at (4.5,.25) {\Huge$\not\equiv$};
+\end{tikzpicture}
+\end{document}

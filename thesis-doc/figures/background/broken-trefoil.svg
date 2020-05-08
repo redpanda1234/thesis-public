@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="11.397666mm"
+   height="11.537426mm"
+   viewBox="0 0 11.397666 11.537426"
+   version="1.1"
+   id="svg1057"
+   inkscape:version="0.92.4 5da689c313, 2019-01-14"
+   sodipodi:docname="broken-trefoil.svg">
+  <defs
+     id="defs1051" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="22.4"
+     inkscape:cx="3.945743"
+     inkscape:cy="21.212631"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="2856"
+     inkscape:window-height="1732"
+     inkscape:window-x="10"
+     inkscape:window-y="54"
+     inkscape:window-maximized="1"
+     showguides="false" />
+  <metadata
+     id="metadata1054">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-56.390211,-19.592463)">
+    <g
+       id="layer1-3"
+       transform="matrix(0.11378284,0,0,0.12039788,52.401663,13.96552)"
+       style="stroke-width:3.15535164;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:2.03893518;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 123.73385,91.12459 c 22.41518,13.72724 5.60313,52.37596 -20.00357,49.75024 -6.570768,-0.24786 -12.965888,-2.61839 -18.363586,-6.32101 m 0,0 C 71.464044,124.65499 63.644645,107.98466 61.739234,91.336144"
+         id="path3850"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:2.03893518;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 81.65084,136.90555 C 59.482388,153.45575 24.691188,122.14463 39.736705,98.537619 44.274838,91.512019 51.896712,86.91924 59.90419,84.930576 m 0,0 c 16.851026,-4.055624 36.495031,-0.85971 53.18865,2.827014"
+         id="path3852"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:2.03893518;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 61.204722,79.576238 C 61.723151,56.411355 81.961092,44.71109 107.47132,48.439462 m -0.72668,18.93446 c 5.3631,2.396351 11.29836,6.271328 12.14156,21.634367 -0.66522,17.563711 -10.81833,35.117531 -27.079121,42.551891"
+         id="path3865"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
+    </g>
+  </g>
+</svg>

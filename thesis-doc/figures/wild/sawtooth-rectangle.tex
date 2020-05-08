@@ -1,0 +1,40 @@
+\documentclass[border=1pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{math, intersections}
+\begin{document}
+\begin{tikzpicture}
+  \pgfmathsetmacro{\scale}{4}
+  \pgfmathsetmacro{\numiter}{100}
+  \tikzmath{
+    function harm(\n) {
+      if \n == 0 then{
+        return 0;
+      } else {
+        return \scale/(\n^2) + harm(\n-1);
+      };
+    };
+    function xstart (\n) {
+      return harm(\n);
+    };
+    function xend (\n) {
+      return harm(\n+1);
+    };
+    function xmid (\n) {
+      return (xstart(\n)+xend(\n))/2;
+    };
+    function dx (\n) {
+      return (xend(\n)-xstart(\n))/2;
+    };
+  }
+
+  \pgfmathsetmacro{\xfinal}{\scale*pi^2/6}
+
+  % Draw the core of the neighborhood (the knot)
+  \draw (0,0)
+  \foreach \n in {0,...,\numiter}{
+    -- ({harm(\n)}, 0) -- ({xmid(\n)}, {dx(\n)}) -- ({harm(\n+1)}, 0)
+  } -- (\xfinal, 0) -- (\xfinal, -\scale) -- (0, -\scale) -- (0,0);
+
+
+\end{tikzpicture}
+\end{document}

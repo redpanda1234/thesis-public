@@ -1,0 +1,63 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}
+  \begin{scope}[every node/.style={fill=black, circle, inner sep=1pt}]
+    \node (v0) at (-1.5, 0) {};
+    \node[circle, fill=white, draw=black, inner sep=1pt] (v2) at (0, -1.5) {};
+    \node (v1) at (1.5, 0) {};
+    \draw (v0) -- (v1);
+    \draw[dashed] (-2.5, -.5) -- (v0);
+    \draw[dashed] (.5, 1.5) -- (v1);
+    \draw[dotted] (v0) -- (v2);
+    \draw[dotted] (v1) -- (v2);
+  \end{scope}
+  \begin{scope}
+    \node[above left] () at (v0) {$v_a$};
+    \node[above right] () at (v1) {$v_{b}$};
+    \node[below] () at (v2) {$v_{c}$};
+  \end{scope}
+
+
+  \draw[|-latex] (0, .25) to[out=95, in=210] (-.5, 1.5) to[in=180, out=30] (5,
+  2.5) to[in=130, out=0] (7.5, 1.5) to[in=110, out=-50] (8, .5);
+
+  \draw[|-latex] (7, -1.25) to[out=-150, in=-150] (-1, -1.25);
+  \draw[|-latex] (9, -1.25) to[out=-30, in=-30] (.75, -1.25);
+
+  % \draw[|-latex] (-.75, -1.5) -- (-.25, -2);
+  % \draw[|-] (7, -1.5) to[bend right=35] (8, -2.5);
+  % \draw[|-] (9, -1.5) to[bend left=35] (8, -2.5);
+
+  % \draw[latex-] (-1, -1.5) to[bend right=35] (0, -2.5);
+  % \draw[latex-] (1, -1.5) to[bend left=35] (0, -2.5);
+
+  % \draw (8, -2.5) to[in=-70, out=-110] (0, -2.5);
+
+  % \draw[|-latex] (3, 1) to[bend left=40] (5, 1);
+  % \draw[|-latex] (5, -1) to[bend left=40] (3, -1);
+
+  \node[above] () at (4, 1.5) {};
+  \node[below] () at (4, -1.5) {};
+
+  \begin{scope}[xshift=8cm]
+  \begin{scope}[every node/.style={fill=black, circle, inner sep=1pt}]
+    \node (v0) at (-1.5, 0) {};
+    \node (v2) at (0, -1.5) {};
+    \node (v1) at (1.5, 0) {};
+    \draw[dotted] (v0) -- (v1);
+    \draw[dashed] (-2.5, -.5) -- (v0);
+    \draw[dashed] (.5, 1.5) -- (v1);
+    \draw (v0) -- (v2);
+    \draw (v1) -- (v2);
+  \end{scope}
+  \begin{scope}
+    \node[above left] () at (v0) {$v_a$};
+    \node[above right] () at (v1) {$v_{b}$};
+    \node[below] () at (v2) {$v_{c}$};
+    % \node[above] () at (v2) {$v_c$};
+  \end{scope}
+  \end{scope}
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,119 @@
+\chapter{Formal Language Theory}
+\section{A grammar for arithmetic}
+\begin{example}
+  In the below, we will define things in a manner reminiscent of a
+  \emph{formal grammar}. If you haven't seen this material before
+  that's totally fine; the idea is just that we want a rigid way to
+  define valid ways of assembling expressions. To do so, we need an
+  \emph{alphabet} of legal characters we're allowed to assemble into
+  expressions (e.g., $1 + 5$ is comprised of the symbols ``$1$'',
+  ``$+$'', and ``$5$''), as well as rules for how we're allowed to
+  stick the characters together (e.g., ``$1 +\div$'' doesn't make
+  sense as an expression, so we want to forbid it). We choose the
+  following:
+  \begin{enumerate}
+    \item Define our \emph{alphabet} $\Sigma = \ZZ \cup \set{+, -,
+        \cdot, \div, (, )}$. As a fun fact, note that we think of the
+      two dots in the $\div$ symbol as being placeholders (analogous
+      to the dots in notation $\ip{\cdot, \cdot}$), then we see $\div$
+      really is a one-line fraction notation.
+    \item We now define what we mean by ``valid'' expressions (this is
+      the part where we remove things like ``$1 + \div$''). Let
+      $\Sigma^\star$ be the set of all strings formed by concatenating
+      elements of $\Sigma$ together ($\star$ is called the
+      \emph{Kleene Star}). We want to restrict our attention to
+      \emph{well-formed formulas} in $\Sigma^\star$ (denoted wwfs)
+      according to the following recursive rules:
+      \begin{enumerate}[label=(\alph*)]
+        \item For each $ k \in \ZZ$, % if $k \geq 0$, then
+          ``$k$'' is a
+          wff (e.g., the character ``2'' is perfectly valid on its own
+          as an expression)% , and if $k < 0$, then ``$(k)$'' is a wff
+          % (e.g., ``$(-2)$'' is a wff)
+          . We call these expressions \emph{atomic}.
+        % \item If $a$ is a wff, then $(a)$ is a wff.
+        \item If ``$a$'',``$b$'' are wffs, then
+          \begin{enumerate}[label=\roman*)]
+            \item ``$(-(a))$''
+            \item ``$(a) + (b)$''
+            \item ``$(a) - (b)$'
+            \item ``$(a) \cdot (b)$''
+            \item ``$(a) \div (b)$'' (when ``$(b)$'' $\not\equiv$
+              ``$0$'' in the sense below)
+          \end{enumerate}
+          are all wffs. Note, the use of the parens above will allow
+          us to avoid thinking about PEMDAS.
+      \end{enumerate}
+      % Note, the idea of a wff is to remove weird things like the
+      % ``$1+\div$'' expression earlier. We haven't said anything about
+      % simplifications yes.
+      We denote the set of all wffs by $L(\Sigma)$, an abuse of the
+      standard formal grammar notation.
+    \item We now define the arithmetic rules by which we can modify
+      wwfs to get equivalent wwfs. Let $E \in L(\Sigma)$, and note
+      that in the following, we will use $=$ to denote literal string
+      equality, and $\equiv$ to denote \emph{arithmetic} equality.
+      \begin{enumerate}
+        % Quote marks
+        \newcommand{\qms}[1]{\text{``}#1\text{''}}
+        \item $\equiv$ is an equivalence relation
+        \item For any $k \in L(\Sigma)$,
+          \begin{enumerate}[label=\roman*)]
+            % \item $\qms{+(k)} \equiv -(-(k))$, and $$
+            \item $\qms{(k)} \equiv (-(-(k)))$. If $k$ is atomic, then
+              $k \equiv (-(-(k)))$ as well.
+            \item For all $a \in \ZZ$, we say the following are equivalent
+              \begin{align*}
+                \qms{k}
+                &\equiv \qms{((k)+(a))-(a)} \\
+                &\equiv \qms{((k)-(a))+(a)} \\
+                &\equiv \qms{(-(a)) + ((k)+(a))} \\
+                &\equiv \qms{(a) - ((a)-(k))}
+              \end{align*}
+            \item For all $a \in \ZZ\setminus\set{0}$, we say the
+              following are equivalent
+              \begin{align*}
+                \qms{k}
+                &\equiv \qms{((k)\cdot(a))\div(a)} \\
+                &\equiv \qms{((k)\div(a))\cdot(a)} \\
+                &\equiv \qms{(1\div(a)) \cdot ((k)\cdot(a))}
+              % \end{align*}
+              % and if $\qms{k} \not\equiv \qms{0}$, then
+              % \begin{align*}
+              %   &\equiv \qms{((1)\div((1)\div(k)))} \\
+              %   &\equiv \qms{(a) \div ((a)\div(k))}
+              \end{align*}
+            \item $0$ has special properties:
+              \begin{align*}
+                \qms{k}
+                &\equiv \qms{(k) + (0)} \\
+                &\equiv \qms{(0) + (k)} \\
+                &\equiv \qms{(k) - (0)} \\
+                &\equiv \qms{(0) -(-(k))}
+              \end{align*}
+              and
+              \begin{align*}
+                \qms{0}
+                &\equiv \qms{(k) \cdot (0)} \\
+                &\equiv \qms{(0) \cdot (k)}
+              \end{align*}
+            \item $1$ is also special:
+              \begin{align*}
+                \qms{k}
+                &\equiv \qms{(1) \cdot (k)} \\
+                &\equiv \qms{(k) \cdot (1)} \\
+                &\equiv \qms{(k) \div (1)} \shortintertext{and if
+                  $\qms{k} \not\equiv\qms{0}$, then}
+                &\equiv ((1) \div ((1) \div (k)))
+              \end{align*}
+          \end{enumerate}
+        % \item Repeat the above where $a$ is a wff,
+      \end{enumerate}
+  \end{enumerate}
+  {\color{red} \Huge is this even relevant}
+  and so on until the cows come home.
+\end{example}
+
+%%% Local Variables:
+%%% TeX-master: "../kobayashi-thesis"
+%%% End:

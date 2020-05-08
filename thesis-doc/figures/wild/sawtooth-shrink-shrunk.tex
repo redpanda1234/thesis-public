@@ -1,0 +1,13 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{math, intersections}
+\begin{document}
+\begin{tikzpicture}[scale=.25]
+  \pgfdeclareimage[width=15cm]{biggzag}{sawtooth-rectangle.pdf} % Heh
+  \pgfdeclareimage[width=10cm]{Bigzag}{sawtooth-rectangle.pdf}
+  \pgfdeclareimage[width=5cm]{bigzag}{sawtooth-rectangle.pdf}
+  \node () at (0,0) {\pgfuseimage{biggzag}};
+  \node () at (0,-1) {\pgfuseimage{Bigzag}};
+  \node () at (0,-2) {\pgfuseimage{bigzag}};
+\end{tikzpicture}
+\end{document}

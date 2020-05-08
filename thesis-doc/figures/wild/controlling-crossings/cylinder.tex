@@ -1,0 +1,81 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\begin{document}
+
+% \tdplotsetmaincoords{10}{5}
+\tdplotsetmaincoords{70}{150}
+
+\begin{tikzpicture}[tdplot_main_coords]
+
+  \coordinate (O) at (0,0,0);
+
+  \pgfmathsetmacro{\myDelta}{10}
+  \pgfmathsetmacro{\mydelta}{\myDelta/2}
+
+
+  \coordinate (Front) at (\myDelta, 0, 0);
+  \coordinate (Fmid) at (\mydelta, 0, 0);
+  \coordinate (Bmid) at (-\mydelta, 0, 0);
+  \coordinate (Back) at (-\myDelta, 0, 0);
+
+
+  \pgfmathsetmacro{\R}{6}
+  \pgfmathsetmacro{\r}{\R/2}
+  \pgfmathsetmacro{\phi}{20}
+  \pgfmathsetmacro{\theta}{20}
+
+  % \draw[thick,->] (0,0,0) -- (1,0,0) node[anchor=north east]{$x$};
+  % \draw[thick,->] (0,0,0) -- (0,1,0) node[anchor=north west]{$y$};
+  % \draw[thick,->] (0,0,0) -- (0,0,1) node[anchor=south]{$z$};
+
+
+  \tdplotsetthetaplanecoords{90}
+
+
+
+  % Big cylinder
+  \tdplotdrawarc[tdplot_rotated_coords,
+  opacity=.1]{(Front)}{\R}{0}{360}{anchor=north}{};
+  \tdplotdrawarc[tdplot_rotated_coords,
+  opacity=.1]{(Back)}{\R}{0}{360}{anchor=north}{};
+  \foreach \th in {0, 40, ..., 320}{
+    % \pgfmathsetmacro{\myy}{\R*cos(\th)}
+    % \pgfmathsetmacro{\myz}{\R*sin(\th)}
+
+    \pgfmathsetmacro{\nextth}{\th + 40}
+    % \pgfmathsetmacro{\ny}{\R*cos(\nextth)}
+    % \pgfmathsetmacro{\nz}{\R*sin(\nextth)}
+
+    % \draw[dashed] (\myDelta, \myy, \myz) -- (-\myDelta, \myy, \myz);
+
+    \draw[tdplot_rotated_coords, draw=black, opacity=.08] ($(\th:\R) +
+    (0, 0, \myDelta)$) arc (\th:\nextth:\R) -- ($(\nextth:\R) - (0, 0,
+    \myDelta)$) arc (\nextth:\th:\R) -- cycle;
+
+  }
+
+  % Small cylinder
+  \tdplotdrawarc[tdplot_rotated_coords, fill=white, opacity=.6]{(Fmid)}{\r}{0}{360}{anchor=north}{};
+  \tdplotdrawarc[tdplot_rotated_coords, fill=white, opacity=.6]{(Bmid)}{\r}{0}{360}{anchor=north}{};
+
+  \tdplotdrawarc[tdplot_rotated_coords, fill=black, opacity=.05, draw=none]{(Fmid)}{\r}{0}{360}{anchor=north}{};
+  \tdplotdrawarc[tdplot_rotated_coords, fill=black, opacity=.025, draw=none]{(Bmid)}{\r}{0}{360}{anchor=north}{};
+  \foreach \th in {100, 140, ..., 460}{
+    % \pgfmathsetmacro{\myya}{\r*cos(\th)}
+    % \pgfmathsetmacro{\myza}{\r*sin(\th)}
+
+    \pgfmathsetmacro{\nextth}{\th + 40}
+    % \pgfmathsetmacro{\ny}{\r*cos(\nextth)}
+    % \pgfmathsetmacro{\nz}{\r*sin(\nextth)}
+
+    \draw[tdplot_rotated_coords, fill=white, fill opacity=.6, draw=none] ($(\th:\r) + (0, 0, \mydelta)$) arc
+    (\th:\nextth:\r) -- ($(\nextth:\r) - (0, 0, \mydelta)$) arc (\nextth:\th:\r) -- cycle;
+
+    \draw[tdplot_rotated_coords, fill=black, fill opacity=.0125, draw=black, dotted] ($(\th:\r) + (0, 0, \mydelta)$) arc (\th:\nextth:\r) -- ($(\nextth:\r) - (0, 0, \mydelta)$) arc (\nextth:\th:\r) -- cycle;
+  }
+
+  \tdplotdrawarc[tdplot_rotated_coords, opacity=.1]{(Fmid)}{\r}{-20}{180}{anchor=north}{}
+\end{tikzpicture}
+
+\end{document}

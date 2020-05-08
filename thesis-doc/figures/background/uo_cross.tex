@@ -1,0 +1,10 @@
+\documentclass{standalone}
+\usepackage{tikz, fkmath}
+\begin{document}
+\begin{tikzpicture}
+  \draw (-1,1) -- (1,-1) node[pos=.75, sloped, yshift=5pt] {under};
+  \draw[white, line width=8pt] (1,1) -- (-1,-1);
+  \draw (1,1) -- (-1,-1) node[pos=.74, sloped, yshift=3.75pt] {over};
+  \draw[dotted] (0,0) circle (1.41);
+\end{tikzpicture}
+\end{document}

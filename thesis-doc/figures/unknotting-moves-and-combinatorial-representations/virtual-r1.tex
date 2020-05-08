@@ -1,0 +1,68 @@
+\documentclass{standalone}
+\usepackage{fkmath}
+\usepackage{tikz}
+\makeatletter
+\tikzset{use path/.code=\tikz@addmode{\pgfsyssoftpath@setcurrentpath#1}}
+\makeatother
+\begin{document}
+\tikzset{
+  partial ellipse/.style args={#1:#2:#3}{
+    insert path={+ (#1:#3) arc (#1:#2:#3)}
+  }
+}
+\begin{tikzpicture}[every node/.style={scale=1.25}]
+  \def\defHalfReidI{
+
+    \coordinate (p1) at (-1.25, 1.2) {};
+    \coordinate (p2) at (-.5, -.5) {};
+    \coordinate (p3) at (0, 0) {};
+
+    \coordinate (c1) at (-1.2, .2) {};
+    \coordinate (c2) at (-1, -.5) {};
+    \coordinate (c3) at (-.2, -.5) {};
+    \coordinate (c4) at (0, -.3) {};
+
+    \coordinate () at (p1);
+    \coordinate () at (p2);
+    \coordinate () at (p3);
+
+    \coordinate () at (c1);
+    \coordinate () at (c2);
+    \coordinate () at (c3);
+    \coordinate () at (c4);
+
+    % \path (p1)
+    \path[save path=\HalfR] (p1) .. controls (c1) and (c2) .. (p2) .. controls (c3) and (c4) .. (p3);
+  }
+
+  \pgfmathsetmacro{\bshift}{6}
+  \pgfmathsetmacro{\cshift}{2*\bshift}
+  \pgfmathsetmacro{\dshift}{3*\bshift}
+  \pgfmathsetmacro{\bshiftcm}{-1*\bshift cm}
+  \pgfmathsetmacro{\cshiftcm}{-1*\cshift cm}
+  \pgfmathsetmacro{\dshiftcm}{-1*\dshift cm}
+
+  \begin{scope}[rotate=90]
+    \defHalfReidI
+    \draw[use path=\HalfR];
+
+    \begin{scope}[yscale=-1, xscale=1]
+      \defHalfReidI
+
+      % \draw[white, line width=7pt, use path=\HalfR];
+      \draw[latex-, use path=\HalfR];
+    \end{scope}
+
+    \draw[densely dotted] (-.5,0) circle (1.41);
+    \draw (-1.0425, .005) circle (.175);
+  \end{scope}
+
+  \begin{scope}[rotate=90, yshift=-5cm]
+    \draw[densely dotted] (-.5,0) circle (1.41);
+    \draw[-latex] (-1.25, 1.2) -- (-1.25, -1.2);
+  \end{scope}
+
+  \node () at (2.5, -.5) {\Huge $\sim$};
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,17 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}[scale=5]
+  \pgfdeclareimage[width=5cm]{miami}{island-miami}
+  \pgfdeclareimage[width=5cm]{geom}{island-geometry}
+  \pgfdeclareimage[width=5cm]{top}{island-topology}
+
+  \node (miami) at (0,.75) {\pgfuseimage{miami}};
+  \node (geom) at (-.75,0) {\pgfuseimage{geom}};
+  \node (top) at (.75,0) {\pgfuseimage{top}};
+
+  \draw[-latex] (miami) -- (geom) node[above, midway, sloped] {\small Geometry};
+  \draw[-latex] (miami) -- (top) node[above, midway, sloped] {\small Topology};
+
+\end{tikzpicture}
+\end{document}

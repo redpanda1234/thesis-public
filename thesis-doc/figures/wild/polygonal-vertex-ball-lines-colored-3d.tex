@@ -1,0 +1,509 @@
+\documentclass[border=1pt]{standalone}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{intersections, calc}
+\usetikzlibrary{fpu}
+
+\begin{document}
+
+\pgfmathsetmacro{\phirot}{40}
+\pgfmathsetmacro{\thetarot}{-40}
+\tdplotsetmaincoords{\phirot}{\thetarot}
+
+\begin{tikzpicture}[every node/.style={scale=1.5}, tdplot_main_coords]
+
+  % Radius of the ball
+  \pgfmathsetmacro{\r}{2*sqrt(2)}
+
+  % Use a 45-45-90 triangle for the edges
+  \coordinate (side1end) at (-2, -2, 0);
+  \coordinate (side2end) at (2, -2, 0);
+
+  \draw[name path=edges] (side1end) -- (0,0,0) -- (side2end);
+
+  % Extend them past our epsilon ball with dotted segments
+  \coordinate (side1ext) at (-3, -3,0);
+  \coordinate (side2ext) at (3, -3,0);
+
+  \draw[dashed] (side1end) -- (side1ext);
+  \draw[dashed] (side2end) -- (side2ext);
+
+  \def\drawgarbage#1#2#3{
+
+    \pgfmathsetmacro{\t}{#1}
+    \pgfmathsetmacro{\tredstop}{#2}
+    \pgfmathsetmacro{\rgarbage}{#3}
+
+    \pgfmathsetmacro{\tstart}{\t + 225}
+    \pgfmathsetmacro{\tend}{225-3*\t}
+
+    \pgfmathsetmacro{\xstart}{\r * cos(\tstart)}
+    \pgfmathsetmacro{\ystart}{\r * sin(\tstart)}
+
+    \pgfmathsetmacro{\xend}{\r * cos(\tend)}
+    \pgfmathsetmacro{\yend}{\r * sin(\tend)}
+
+
+    % \pgfset{fpu/output format=fixed}
+    \pgfmathsetmacro{\xmid}{(\xstart+\xend)/2}
+    \pgfmathsetmacro{\ymid}{(\ystart+\yend)/2}
+
+
+    \path[name path=line] (\xstart, \ystart,0) -- (\xend, \yend,0);
+
+
+    \node[
+    name intersections={of=edges and line, total=\mytot}
+    ] (myint) at (intersection-\mytot) {};
+
+
+    \pgfgetlastxy{\xint}{\yint}; % Extract the coordinates of A
+
+
+    % Length of the line between xstart and xend
+    \pgfmathsetmacro{\linelen}{sqrt((\xstart-\xend)^2 + (\ystart-\yend)^2)}
+    \pgfmathsetmacro{\localr}{\linelen/2}
+
+    % Length of the y displacement between them
+    \pgfmathsetmacro{\ydiff}{abs(\ystart - \yend)}
+
+    % Calculate the rotated coordinate plane angle
+    \pgfmathsetmacro{\rotby}{acos(abs(\ystart - \yend)/\linelen)}
+
+
+
+    % We need this bs to get the standard x,z,y lengths
+    \pgfpointxyz{1}{1}{1}
+    \pgfgetlastxy{\xstd}{\ystd}; % Extract the coordinates
+    \pgfmathsetmacro{\xint}{\xint/\xstd}
+    \pgfmathsetmacro{\yint}{\yint/\ystd}
+    % \node () at (0,0,4) {\xstd, \ystd};
+    % \node () at (0,0,1) {\xmid, \ymid};
+    % \node () at (0,0,2) {\xint, \yint};
+    % \node () at (0,0,3) {\localr};
+
+    \pgfmathsetmacro{\garbage}{1}
+
+    % \pgfmathsetmacro{\tsfrac}{abs(\xmid - \xint)/(\localr)}
+
+
+
+    % \pgfmathsetmacro{\thetastop}{asin(\tsfrac)}
+    % \pgfmathsetmacro{\thetastop}{acos(abs(\xmid - \xint)/\linelen)}
+
+    % \node[above left] () at (\xend, \yend) {\tiny \tsfrac};
+    % \node[above left] () at (\xend, \yend) {\tiny \thetastop};
+
+    \node (endpt) at (\xend, \yend, 0) {} ;
+
+    \tdplotsetrotatedcoordsorigin{(endpt)}
+    \tdplotsetrotatedcoords{\rotby}{90}{0}
+
+    \begin{scope}
+      \pgfmathsetmacro{\dropbyx}{-1*\rgarbage*\localr*sin(\tredstop)}
+      \fill[
+          tdplot_rotated_coords,
+          fill=red!70!white,
+          fill opacity=.1
+      ]
+      (0, 0, 0) arc (90:\tredstop:\localr)
+      node[inner sep=0pt, outer sep=0pt] (crap) {}
+      -- ++(\dropbyx, 0, 0) node[inner sep=0pt, outer sep=0pt] (crappier) {};
+
+      \draw[tdplot_rotated_coords, red!70!white, opacity=.5] (0, 0, 0)
+      arc (90:\tredstop:\localr);
+
+      % \fill[tdplot_rotated_coords, fill=blue!70!white, fill
+      % opacity=.1] (crappier) -- (crap) arc (\tredstop:270:\localr) -- (crappier);
+      % \draw[tdplot_rotated_coords, blue!70!white, opacity=.5]
+      % (crappier) -- (crap) arc (\tredstop:270:\localr) -- (crappier);
+    \end{scope}
+
+    \pgfmathsetmacro{\newx}{-\xend}
+    \pgfmathsetmacro{\newy}{\yend}
+    \node (newend) at (\newx, \newy, 0) {} ;
+    \tdplotsetrotatedcoordsorigin{(newend)}
+    \tdplotsetrotatedcoords{-\rotby}{90}{0}
+    \begin{scope}
+      \pgfmathsetmacro{\dropbyx}{-1*\rgarbage*\localr*sin(\tredstop)}
+      \fill[
+          tdplot_rotated_coords,
+          fill=red!70!white,
+          fill opacity=.1
+      ]
+      (0, 0, 0) arc (90:\tredstop:\localr)
+      node[inner sep=0pt, outer sep=0pt] (crap) {}
+      -- ++(\dropbyx, 0, 0) node[inner sep=0pt, outer sep=0pt] (crappier) {};
+
+      \draw[tdplot_rotated_coords, red!70!white, opacity=.5] (0, 0, 0)
+      arc (90:\tredstop:\localr);
+
+      % \fill[tdplot_rotated_coords, fill=blue!70!white, fill
+      % opacity=.1] (crappier) -- (crap) arc (\tredstop:270:\localr) -- (crappier);
+      % \draw[tdplot_rotated_coords, blue!70!white, opacity=.5]
+      % (crappier) -- (crap) arc (\tredstop:270:\localr) -- (crappier);
+    \end{scope}
+  }
+
+
+  \def\drawbluegarbage#1#2#3{
+
+    \pgfmathsetmacro{\t}{#1}
+    \pgfmathsetmacro{\tredstop}{#2}
+    \pgfmathsetmacro{\rgarbage}{#3}
+
+    \pgfmathsetmacro{\tstart}{\t + 225}
+    \pgfmathsetmacro{\tend}{225-3*\t}
+
+    \pgfmathsetmacro{\xstart}{\r * cos(\tstart)}
+    \pgfmathsetmacro{\ystart}{\r * sin(\tstart)}
+
+    \pgfmathsetmacro{\xend}{\r * cos(\tend)}
+    \pgfmathsetmacro{\yend}{\r * sin(\tend)}
+
+
+    % \pgfset{fpu/output format=fixed}
+    \pgfmathsetmacro{\xmid}{(\xstart+\xend)/2}
+    \pgfmathsetmacro{\ymid}{(\ystart+\yend)/2}
+
+
+    \path[name path=line] (\xstart, \ystart,0) -- (\xend, \yend,0);
+
+
+    \node[
+    name intersections={of=edges and line, total=\mytot}
+    ] (myint) at (intersection-\mytot) {};
+
+
+    \pgfgetlastxy{\xint}{\yint}; % Extract the coordinates of A
+
+
+    % Length of the line between xstart and xend
+    \pgfmathsetmacro{\linelen}{sqrt((\xstart-\xend)^2 + (\ystart-\yend)^2)}
+    \pgfmathsetmacro{\localr}{\linelen/2}
+
+    % Length of the y displacement between them
+    \pgfmathsetmacro{\ydiff}{abs(\ystart - \yend)}
+
+    % Calculate the rotated coordinate plane angle
+    \pgfmathsetmacro{\rotby}{acos(abs(\ystart - \yend)/\linelen)}
+
+
+
+    % We need this bs to get the standard x,z,y lengths
+    \pgfpointxyz{1}{1}{1}
+    \pgfgetlastxy{\xstd}{\ystd}; % Extract the coordinates
+    \pgfmathsetmacro{\xint}{\xint/\xstd}
+    \pgfmathsetmacro{\yint}{\yint/\ystd}
+
+    \node (endpt) at (\xend, \yend, 0) {} ;
+
+    \tdplotsetrotatedcoordsorigin{(endpt)}
+    \tdplotsetrotatedcoords{\rotby}{90}{0}
+
+    \begin{scope}
+      \pgfmathsetmacro{\dropbyx}{-1*\rgarbage*\localr*sin(\tredstop)}
+      \path[
+          tdplot_rotated_coords,
+      ]
+      (0, 0, 0) arc (90:\tredstop:\localr)
+      node[inner sep=0pt, outer sep=0pt] (crap) {}
+      -- ++(\dropbyx, 0, 0) node[inner sep=0pt, outer sep=0pt] (crappier) {};
+
+      \path[tdplot_rotated_coords] (0, 0, 0) arc (90:\tredstop:\localr);
+
+      \fill[tdplot_rotated_coords, fill=blue!70!white, fill
+      opacity=.1] (crappier) -- (crap) arc (\tredstop:270:\localr) -- (crappier);
+      \draw[tdplot_rotated_coords, blue!70!white, opacity=.5]
+      (crap) arc (\tredstop:270:\localr);
+    \end{scope}
+
+    \pgfmathsetmacro{\newx}{-\xend}
+    \pgfmathsetmacro{\newy}{\yend}
+    \node (newend) at (\newx, \newy, 0) {} ;
+    \tdplotsetrotatedcoordsorigin{(newend)}
+    \tdplotsetrotatedcoords{-\rotby}{90}{0}
+    \begin{scope}
+      \pgfmathsetmacro{\dropbyx}{-1*\rgarbage*\localr*sin(\tredstop)}
+      \path[tdplot_rotated_coords]
+      (0, 0, 0) arc (90:\tredstop:\localr)
+      node[inner sep=0pt, outer sep=0pt] (crap) {}
+      -- ++(\dropbyx, 0, 0) node[inner sep=0pt, outer sep=0pt] (crappier) {};
+
+      \path[tdplot_rotated_coords] (0, 0, 0) arc (90:\tredstop:\localr);
+
+      \fill[tdplot_rotated_coords, fill=blue!70!white, fill
+      opacity=.1] (crappier) -- (crap) arc (\tredstop:270:\localr) -- (crappier);
+      \draw[tdplot_rotated_coords, blue!70!white, opacity=.5]
+      (crap) arc (\tredstop:270:\localr);
+    \end{scope}
+  }
+
+  \foreach \t in {4, 8,..., 40, 45}{
+    \pgfmathsetmacro{\tstart}{\t + 225}
+    \pgfmathsetmacro{\tend}{225-3*\t}
+
+    \pgfmathsetmacro{\xstart}{\r * cos(\tstart)}
+    \pgfmathsetmacro{\ystart}{\r * sin(\tstart)}
+
+    \pgfmathsetmacro{\xend}{\r * cos(\tend)}
+    \pgfmathsetmacro{\yend}{\r * sin(\tend)}
+
+    \path[name path=line] (\xstart, \ystart,0) -- (\xend, \yend,0);
+
+    \node[
+    name intersections={of=edges and line, total=\mytot}
+    ] (myint) at (intersection-\mytot) {};
+
+    \pgfgetlastxy{\xint}{\yint}; % Extract the coordinates of A
+
+
+    % Length of the line between xstart and xend
+
+    \draw[blue!70!white, opacity=.2] (\xstart, \ystart) -- (\xint,
+    \yint);
+
+
+    \draw[red!70!white, opacity=.2] (\xend, \yend) -- (\xint,
+    \yint);
+
+
+  }
+
+  \foreach \t in {50, 54,..., 88}{
+    \pgfmathsetmacro{\tstart}{\t + 225}
+    \pgfmathsetmacro{\tend}{225-3*\t}
+
+    \pgfmathsetmacro{\xstart}{\r * cos(\tstart)}
+    \pgfmathsetmacro{\ystart}{\r * sin(\tstart)}
+
+    \pgfmathsetmacro{\xend}{\r * cos(\tend)}
+    \pgfmathsetmacro{\yend}{\r * sin(\tend)}
+
+    \path[name path=line] (\xstart, \ystart,0) -- (\xend, \yend,0);
+
+    \node[
+    name intersections={of=edges and line, total=\mytot}
+    ] (myint) at (intersection-\mytot) {};
+
+    \pgfgetlastxy{\xint}{\yint}; % Extract the coordinates of A
+
+
+    % Length of the line between xstart and xend
+
+    \draw[blue!70!white, opacity=.4] (\xstart, \ystart) -- (\xint,
+    \yint);
+
+
+    \draw[red!70!white, opacity=.4] (\xend, \yend) -- (\xint,
+    \yint);
+
+  }
+
+
+  \foreach \t/\tcrap/\rmultiplier in {
+    % 44/182.5/23,
+    % 43/184.25/13.5,
+    % 42/185.5/10.4,
+    % 41/187/8.15,
+    40/188.5/6.65,
+    % %
+    % 39/190/5.7,
+    % 38/191.25/5,
+    % 37/192.5/4.5,
+    36/193.75/4.1,
+    % 35/194.75/3.8,
+    % 34/195.75/3.55,
+    % 33/196.8/3.3,
+    32/197.8/3.1,
+    % 31/198.7/2.95,
+    % 30/199.5/2.8,
+    % %
+    % 29/200.25/2.7,
+    28/201/2.6,
+    % 27/201.8/2.5,
+    % 26/202.5/2.4,
+    % 25/203.15/2.35,
+    24/203.5/2.3,
+    % 23/204/2.25,
+    % 22/204.7/2.175,
+    % 21/205.5/2.1,
+    20/205.7/2.1,
+    % %
+    % 19/206.2/2.05,
+    % 18/206.7/1.975,
+    % 17/207.15/1.95,
+    16/207.6/1.9,
+    % 15/208.0/1.875,
+    % 14/208.3/1.85,
+    % 13/208.5/1.825,
+    12/208.7/1.825,
+    % 11/209.2/1.825,
+    %
+    % 10/209.0/1.8,
+    % 9/209.5/1.75,
+    8/210/1.75,
+    % 7/210.25/1.75,
+    % 6/210.5/1.75,
+    % 5/210.715/1.75,
+    4/211/1.75,
+    % 3/211.5/1.7,
+  }{
+    \drawgarbage{\t}{\tcrap}{\rmultiplier}
+    % \pgfmathsetmacro{\othert}{90-\t}
+  }
+
+
+  \foreach \t/\tcrap/\rmultiplier in {
+    % 45/180/90,
+    % 45/180/23,
+    % 44/182.5/23,
+    % 43/184.25/13.5,
+    % 42/185.5/10.4,
+    % 41/187/8.15,
+    40/188.5/6.65,
+    % %
+    % 39/190/5.7,
+    % 38/191.25/5,
+    % 37/192.5/4.5,
+    36/193.75/4.1,
+    % 35/194.75/3.8,
+    % 34/195.75/3.55,
+    % 33/196.8/3.3,
+    32/197.8/3.1,
+    % 31/198.7/2.95,
+    % 30/199.5/2.8,
+    % %
+    % 29/200.25/2.7,
+    28/201/2.6,
+    % 27/201.8/2.5,
+    % 26/202.5/2.4,
+    % 25/203.15/2.35,
+    24/203.5/2.3,
+    % 23/204/2.25,
+    % 22/204.7/2.175,
+    % 21/205.5/2.1,
+    20/205.7/2.1,
+    % %
+    % 19/206.2/2.05,
+    % 18/206.7/1.975,
+    % 17/207.15/1.95,
+    16/207.6/1.9,
+    % 15/208.0/1.875,
+    % 14/208.3/1.85,
+    % % 13/208.5/1.825,
+    12/208.7/1.825,
+    % 11/209.2/1.825,
+    %
+    % 10/209.0/1.8,
+    % 9/209.5/1.75,
+    8/210/1.75,
+    % 7/210.25/1.75,
+    % 6/210.5/1.75,
+    % 5/210.715/1.75,
+    4/211/1.75,
+    % 3/211.5/1.7,
+  }{
+    \drawbluegarbage{\t}{\tcrap}{\rmultiplier}
+    % \pgfmathsetmacro{\othert}{90-\t}
+  }
+
+
+
+
+
+
+
+
+  \pgfmathsetmacro{\t}{45}
+  \pgfmathsetmacro{\tredstop}{180}
+
+
+  \pgfmathsetmacro{\tstart}{\t + 225}
+  \pgfmathsetmacro{\tend}{225-3*\t}
+
+  \pgfmathsetmacro{\xstart}{\r * cos(\tstart)}
+  \pgfmathsetmacro{\ystart}{\r * sin(\tstart)}
+
+  \pgfmathsetmacro{\xend}{\r * cos(\tend)}
+  \pgfmathsetmacro{\yend}{\r * sin(\tend)}
+
+
+  % \pgfset{fpu/output format=fixed}
+  \pgfmathsetmacro{\xmid}{(\xstart+\xend)/2}
+  \pgfmathsetmacro{\ymid}{(\ystart+\yend)/2}
+
+
+  \path[name path=line] (\xstart, \ystart,0) -- (\xend, \yend,0);
+
+
+  \node[
+  name intersections={of=edges and line, total=\mytot}
+  ] (myint) at (intersection-\mytot) {};
+
+
+  \pgfgetlastxy{\xint}{\yint}; % Extract the coordinates of A
+
+
+  % Length of the line between xstart and xend
+  \pgfmathsetmacro{\linelen}{sqrt((\xstart-\xend)^2 + (\ystart-\yend)^2)}
+  \pgfmathsetmacro{\localr}{\linelen/2}
+
+  % Length of the y displacement between them
+  \pgfmathsetmacro{\ydiff}{abs(\ystart - \yend)}
+
+  % Calculate the rotated coordinate plane angle
+  \pgfmathsetmacro{\rotby}{acos(abs(\ystart - \yend)/\linelen)}
+
+
+
+  % We need this bs to get the standard x,z,y lengths
+  \pgfpointxyz{1}{1}{1}
+  \pgfgetlastxy{\xstd}{\ystd}; % Extract the coordinates
+  \pgfmathsetmacro{\xint}{\xint/\xstd}
+  \pgfmathsetmacro{\yint}{\yint/\ystd}
+
+  \pgfmathsetmacro{\garbage}{1}
+
+  \node (endpt) at (\xend, \yend, 0) {} ;
+
+  \tdplotsetrotatedcoordsorigin{(endpt)}
+  \tdplotsetrotatedcoords{\rotby}{90}{0}
+
+  \begin{scope}
+    \fill[
+    tdplot_rotated_coords,
+    fill=red!70!white,
+    fill opacity=.1
+    ]
+    (0, 0, 0) arc (90:\tredstop:\localr)
+    node[inner sep=0pt, outer sep=0pt] (crap) {}
+    -- ++(\r, 0, 0) node[inner sep=0pt, outer sep=0pt] (crappier) {};
+
+    \draw[tdplot_rotated_coords, red!70!white, opacity=.5] (0, 0, 0)
+    arc (90:\tredstop:\localr);
+
+    \fill[tdplot_rotated_coords, fill=blue!70!white, fill
+    opacity=.1] (crappier) -- (crap) arc (\tredstop:270:\localr) --
+    (crappier) --cycle;
+    \draw[tdplot_rotated_coords, blue!70!white, opacity=.5]
+    % (crappier) --
+    (crap) arc (\tredstop:270:\localr);%; -- (crappier) -- cycle;
+  \end{scope}
+
+
+
+  % Draw the circle
+  \draw (side1end) -- (0,0,0) -- (side2end);
+  % \node[fill=black, circle, inner sep=1pt] (x) at (0,0,0) {};
+
+  \fill[red!70!white, opacity=.1] (side2end) arc (-45:225:\r) -- (0,0,0)
+  -- (side2end);
+  \draw[red, thick] (2, -2,0) arc(-45:225:\r);
+
+  \fill[blue!70!white, opacity=.1] (side1end) -- (0,0,0) -- (side2end)
+  arc (315:225:\r) --cycle;
+  \draw[blue, thick] (-2, -2,0) arc(225:315:\r);
+
+\end{tikzpicture}
+\end{document}

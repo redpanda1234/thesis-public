@@ -1,0 +1,16 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}[scale=.5]
+  % How far off of x = 0 to start / end
+  \pgfmathsetmacro{\xshift}{.2}
+  \pgfmathsetmacro{\y}{.5}
+
+  % How far to bend
+  \pgfmathsetmacro{\bend}{30}
+
+  \draw[->] (-\xshift,-\y) to[bend left=\bend] (-\xshift,\y);
+  \node () at (0,0) {1};
+  \draw[->] (\xshift,\y) to[bend left=\bend] (\xshift,-\y);
+\end{tikzpicture}
+\end{document}

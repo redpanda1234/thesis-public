@@ -1,0 +1,86 @@
+\documentclass[border=2pt]{standalone}
+\usepackage{tikz, tikz-3dplot}
+\begin{document}
+\tdplotsetmaincoords{75}{120}
+\begin{tikzpicture}[tdplot_main_coords, every node/.style={scale=.5}]
+  \coordinate (O) at (0, 0, 0);
+
+  % Draw and fill colors
+  \def\dcol{black!50!white}
+  \def\fcol{gray}
+
+  % Opacities
+  \pgfmathsetmacro{\dop}{1}
+  \pgfmathsetmacro{\fop}{.07}
+
+  \pgfmathsetmacro{\y}{1.5}
+  \pgfmathsetmacro{\x}{.8}
+
+  % overstrand z val
+  \pgfmathsetmacro{\zo}{\x/2}
+  \pgfmathsetmacro{\zu}{\x/2}
+
+  \pgfmathsetmacro{\dx}{\x/2}
+  \pgfmathsetmacro{\dz}{\y/2}
+
+  \pgfmathsetmacro{\gap}{.1}
+  \pgfmathsetmacro{\pre}{\dx - \gap}
+  \pgfmathsetmacro{\post}{\dx + \gap}
+
+  \draw[densely dotted, \dcol, opacity=\dop] (0,0,\x) -- (0,0,0) -- (\x,0,0);
+  \draw[densely dotted, \dcol, opacity=\dop] (0,0,0) -- (0,\y,0);
+
+  \draw (\dx, 0, \zu) -- (\dx,\dz,\zu) node[at start, circle, fill=black, inner
+  sep=1pt] {} (\dx,\dz,\zu) -- (\dx,\y,\zu) node[at end, circle, fill=black,
+  inner sep=1pt] {};
+
+  \draw (0, \dz, \zo) -- (\pre,\dz,\zo) node[at start, circle, fill=black, inner
+  sep=1pt] {} (\post,\dz,\zo) -- (\x,\dz,\zo) node[at end, circle, fill=black,
+  inner sep=1pt] {};
+
+  \draw (0, \dz, \zo) -- (\pre,\dz,\zo) node[at start, circle, fill=black, inner
+  sep=1pt] {} (\post,\dz,\zo) -- (\x,\dz,\zo) node[at end, circle, fill=black,
+  inner sep=1pt] {};
+
+  % \draw[red!90!white, opacity=.5] (\pre,\dz,\zo) -- (\post,\dz,\zo);
+
+  % \draw (0, \dz, \zo) -- (\dx,\dz,\zo) node[at start, circle, fill=black, inner
+  % sep=1pt] {} node[at end, circle, fill=black, inner sep=1pt] {};
+
+  % Left face
+  \fill[fill=\fcol, fill opacity=\fop] (O) -- (\x,0,0) --
+  (\x,0,\x) -- (0,0,\x) -- (O);
+
+  % Bottom face
+  \fill[fill=\fcol, fill opacity=\fop] (O) -- (\x,0,0) --
+  (\x,\y,0) -- (0,\y,0) -- (O);
+
+  % Top face
+  \fill[fill=\fcol, fill opacity=\fop] (0,0,\x) -- (\x,0,\x) --
+  (\x,\y,\x) -- (0,\y,\x) -- (0,0,\x);
+
+  % Back face
+  \fill[fill=\fcol, fill opacity=\fop] (O) -- (0,0,\x) --
+  (0,\y,\x) -- (0,\y,0) -- (O);
+
+  % Front face
+  \fill[fill=\fcol, fill opacity=\fop] (\x,0,0) -- (\x,0,\x) --
+  (\x,\y,\x) -- (\x,\y,0) -- (\x,0,0);
+
+  % Right face
+  \fill[fill=\fcol, fill opacity=\fop] (0,\y,0) -- (\x,\y,0) --
+  (\x,\y,\x) -- (0,\y,\x) -- (0,\y,0);
+
+  % Right frame
+  \draw[draw=\dcol, draw opacity=\dop] (0,\y,0) -- (\x,\y,0) -- (\x,\y,\x) --
+  (0,\y,\x) -- (0,\y,0);
+
+
+  \draw[\dcol, opacity=\dop] (\x,0,\x) -- (\x,\y,\x);
+  \draw[\dcol, opacity=\dop] (\x,0,0) -- (\x,\y,0);
+  \draw[\dcol, opacity=\dop] (0,0,\x) -- (0,\y,\x);
+  \draw[\dcol, opacity=\dop] (0,0,\x) -- (\x,0,\x) -- (\x,0,0);
+
+
+\end{tikzpicture}
+\end{document}

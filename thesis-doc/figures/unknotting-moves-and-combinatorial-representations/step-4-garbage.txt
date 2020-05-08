@@ -1,0 +1,16 @@
+\item \small $(\ell_u^+)$: \footnotesize $v_\ell = \ell_o^{\rm in}$, $u_\ell = \ell_u^{\rm in}$
+\item \small $(\ell_u^-)$: \footnotesize $v_\ell = \ell_o^{\rm out}$, $u_\ell = \ell_u^{\rm in}$
+\item \small $(\ell_o^+)$: \footnotesize $v_\ell = \ell_u^{\rm out}$, $u_\ell = \ell_o^{\rm in}$
+\item \small $(\ell_o^-)$: \footnotesize $v_\ell = \ell_u^{\rm in}$, $u_\ell = \ell_o^{\rm in}$
+\item \small $(\ell_u^+)$: \footnotesize $v_\ell = \ell_o^{\rm in}$, $u_\ell = \ell_u^{\rm in}$
+\item \small $(\ell_u^-)$: \footnotesize $v_\ell = \ell_o^{\rm out}$, $u_\ell = \ell_u^{\rm in}$
+\item \small $(\ell_o^+)$: \footnotesize $v_\ell = \ell_u^{\rm out}$, $u_\ell = \ell_o^{\rm in}$
+\item \small $(\ell_o^-)$: \footnotesize $v_\ell = \ell_u^{\rm in}$, $u_\ell = \ell_o^{\rm in}$
+\item \small $(\ell_u^+)$: \footnotesize $v_\ell = \ell_o^{\rm in}$, $u_\ell = \ell_u^{\rm in}$
+\item \small $(\ell_u^-)$: \footnotesize $v_\ell = \ell_o^{\rm out}$, $u_\ell = \ell_u^{\rm in}$
+\item \small $(\ell_o^+)$: \footnotesize $v_\ell = \ell_u^{\rm out}$, $u_\ell = \ell_o^{\rm in}$
+\item \small $(\ell_o^-)$: \footnotesize $v_\ell = \ell_u^{\rm in}$, $u_\ell = \ell_o^{\rm in}$
+\item \small $(\ell_u^+)$: \footnotesize $v_\ell = \ell_o^{\rm in}$, $u_\ell = \ell_u^{\rm in}$
+\item \small $(\ell_u^-)$: \footnotesize $v_\ell = \ell_o^{\rm out}$, $u_\ell = \ell_u^{\rm in}$
+\item \small $(\ell_o^+)$: \footnotesize $v_\ell = \ell_u^{\rm out}$, $u_\ell = \ell_o^{\rm in}$
+\item \small $(\ell_o^-)$: \footnotesize $v_\ell = \ell_u^{\rm in}$, $u_\ell = \ell_o^{\rm in}$

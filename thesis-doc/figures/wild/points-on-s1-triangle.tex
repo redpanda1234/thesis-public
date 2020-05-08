@@ -1,0 +1,73 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}
+  \begin{scope}
+    \pgfmathsetmacro{\r}{2}
+    \draw (0,0) circle (\r);
+    \foreach \t/\lab in {.3/s00, .42/s01, .77/s02}{
+      \pgfmathsetmacro{\t}{360*\t + 90}
+      \pgfmathsetmacro{\x}{\r*cos(\t)}
+      \pgfmathsetmacro{\y}{\r*sin(\t)}
+      \node[circle, fill=black, inner sep=1pt] (\lab) at (\x, \y) {};
+    }
+    \node[below left] () at (s00) {$s_{0}$};
+    \node[below] () at (s01) {$s_{1}$};
+    \node[right] () at (s02) {$s_{2}$};
+
+    \draw[dashed] (s00) -- (s01) -- (s02) -- (s00);
+  \end{scope}
+  \begin{scope}[xshift=8cm]
+    \pgfmathsetmacro{\r}{2}
+    % \draw (0,0) circle (\r);
+    \foreach \t/\lab in {.3/s00, .42/s01, .77/s02}{
+      \pgfmathsetmacro{\t}{360*\t + 90}
+      \pgfmathsetmacro{\x}{\r*cos(\t)}
+      \pgfmathsetmacro{\y}{\r*sin(\t)}
+      \node[circle, fill=black, inner sep=1pt] (\lab) at (\x, \y) {};
+    }
+    \node[below left] () at (s00) {$s_{0}$};
+    \node[below] () at (s01) {$s_{1}$};
+    \node[right] () at (s02) {$s_{2}$};
+
+    \draw (s00) to[bend right=10] (s01) ;
+    \draw (s01) to[bend right=30] (s02) ;
+    \draw (s02) to[bend right=55] (s00) ;
+
+    \draw[dashed] (s00) to[bend left=10] (s01)
+                  (s01) to[bend left=8] (s02)
+                  (s02) to[bend left=8] (s00);
+
+    % \draw[dashed] (s00) to[bend left=10] (s01) ;
+    % \draw[dashed] (s01) to[out=50, in=200] (s02) ;
+    % \draw[dashed] (s02) to[out=190, in=-20] (s00) ;
+
+    % \draw (s00) -- (s01) -- (s02) -- (s00);
+  \end{scope}
+  \begin{scope}[xshift=3cm, yshift=-4cm]
+    \pgfmathsetmacro{\r}{2}
+    % \draw (0,0) circle (\r);
+    \foreach \t/\lab in {.3/s00, .42/s01, .77/s02}{
+      \pgfmathsetmacro{\t}{360*\t + 90}
+      \pgfmathsetmacro{\x}{\r*cos(\t)}
+      \pgfmathsetmacro{\y}{\r*sin(\t)}
+      \node[circle, fill=black, inner sep=1pt] (\lab) at (\x, \y) {};
+    }
+    \node[below left] () at (s00) {$s_{0}$};
+    \node[below] () at (s01) {$s_{1}$};
+    \node[right] () at (s02) {$s_{2}$};
+
+    \draw (s00) -- (s01) -- (s02) -- (s00);
+
+    \draw[dashed] (s00) to[bend left=20] (s01) ;
+    \draw[dashed] (s01) to[out=50, in=205] (s02) ;
+    \draw[dashed] (s02) to[out=195, in=-20] (s00) ;
+
+    % \draw[dashed] (s00) to[bend left=20] (s01) ;
+    % \draw[dashed] (s01) to[out=70, in=210] (s02) ;
+    % \draw[dashed] (s02) to[out=195, in=-20] (s00) ;
+  \end{scope}
+  \draw[|-latex] (3.5,0) -- (5,0);
+  \draw[|-latex] (9,-2) to[out=-75, in=-30] (4,-5.5);
+\end{tikzpicture}
+\end{document}
